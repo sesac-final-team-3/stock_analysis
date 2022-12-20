@@ -21,6 +21,13 @@ ROBOTSTXT_OBEY = False
 
 LOG_FILE = 'board_comment.log'
 
+
+FEED_FORMAT = "csv"
+FEED_EXPORT_ENCODING = 'utf-8-sig'
+
+# FEED_URI = "boardcomment.csv"
+
+# FILES_STORE = './../../../Data/'
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
 
@@ -64,9 +71,9 @@ LOG_FILE = 'board_comment.log'
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    'boardcomment.pipelines.BoardcommentPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'boardcomment.pipelines.BoardcommentPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

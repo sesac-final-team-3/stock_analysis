@@ -7,6 +7,12 @@ import scrapy
 
 
 class BoardcommentItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+
+    title = scrapy.Field()
+    view = scrapy.Field() 
+    recommend = scrapy.Field() 
+    decommend = scrapy.Field() 
+    date = scrapy.Field() 
+    comment = scrapy.Field() 
+    com_code = scrapy.Field()
     pass

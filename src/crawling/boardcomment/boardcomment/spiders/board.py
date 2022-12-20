@@ -1,6 +1,7 @@
 import scrapy
 import requests
 from bs4 import BeautifulSoup
+from boardcomment.items import BoardcommentItem
 
 class BoardSpider(scrapy.Spider):
     name = 'board'
@@ -18,23 +19,25 @@ class BoardSpider(scrapy.Spider):
             response = requests.get(end_url,headers=header)
             soup = BeautifulSoup(response.text,"html.parser")
             end_pages = soup.select_one('td .on a').text
-            
-            # for page in range(1,int(end_pages)+1):
+            print(int(end_pages.replace(',',''))+1)
+            for page in range(1,int(end_pages.replace(',',''))+1):
+                print(page)
             # 테스트 page값
-            for page in range(1,6):
+            # for page in range(1,2):
                 try: 
                     url = f'https://finance.naver.com/item/board.naver?code={company}&page={page}'
-                    urls.append(url)
+                    urls.append([company, url])
                 except Exception as e:
                     # print(e)
                     pass
 
-        for url in urls:
+        for com_code, url in urls:
             # print(url)
-            yield scrapy.Request(url=url, callback=self.crawl_parse)
+            yield scrapy.Request(url=url, callback=self.crawl_parse, meta={'com_code':com_code})
 
     def crawl_parse(self,response):
         crawl_urls = []
+        com_code = response.meta['com_code']
         # print(response)
         for i in range(3,26):
             try:
@@ -47,14 +50,28 @@ class BoardSpider(scrapy.Spider):
                 pass
         for crawl_url in crawl_urls:
             print(crawl_url)
-            yield scrapy.Request(url=crawl_url, callback=self.parse_comment)
+            yield scrapy.Request(url=crawl_url, callback=self.parse_comment, meta={'com_code':com_code})
+
     def parse_comment(self,response):
-        # 타이틀 xpath,css 검색시 빈 리스트 아직 해결x 
-        # xpath 한단계씩 들어가보면 tbody부터 빈리스트 출력(table[1]까지 들어갔을땐 값 존재)
-        # title = response.xpath('//*[@id="content"]/div[2]/table[1]/tbody/tr[1]/th[1]/strong').extract()   
-        # view = response.xpath('//*[@id="content"]/div[2]/table[1]/tbody/tr[1]/th[2]/span').extract()    
-        # good = response.xpath('//*[@id="content"]/div[2]/table[1]/tbody/tr[1]/th[2]/strong[1]').extract()
-        # bad = response.xpath('//*[@id="content"]/div[2]/table[1]/tbody/tr[1]/th[2]/strong[2]').extract()
-        comment = response.xpath('//*[@id="body"]/text()').extract()[0].rstrip()
-        print(comment)
-        
+        item = BoardcommentItem()
+
+        com_code = response.meta['com_code']
+        title = response.xpath('//*[@id="content"]/div[2]/table[1]/tr[1]/th[1]/strong/text()').extract()[0]   
+        view = response.xpath('//*[@id="content"]/div[2]/table[1]/tr[1]/th[2]/span/text()').extract()[0]   
+        recommend = response.xpath('//*[@id="content"]/div[2]/table[1]/tr[1]/th[2]/strong[1]/text()').extract()[0] 
+        decommend = response.xpath('//*[@id="content"]/div[2]/table[1]/tr[1]/th[2]/strong[2]/text()').extract()[0] 
+        temp_comment = response.xpath('//*[@id="body"]/text()').extract()
+        date = response.xpath('//*[@id="content"]/div[2]/table[1]/tr[2]/th[2]/text()').extract()[0]
+        for i in range(len(temp_comment)):
+            temp_comment[i]=temp_comment[i].rstrip()
+        comment = '\n'.join(temp_comment)
+
+        item['title'] = title
+        item['view'] = view
+        item['recommend'] = recommend
+        item['decommend'] = decommend
+        item['comment'] = comment
+        item['date'] = date
+        item['com_code'] = com_code
+
+        yield item
