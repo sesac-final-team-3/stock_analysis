@@ -3,7 +3,7 @@
 
 *.pdf
 *.csv
-
+*.txt
 ### Django ###
 *.log
 *.pot
