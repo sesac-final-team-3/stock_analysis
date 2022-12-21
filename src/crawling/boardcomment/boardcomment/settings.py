@@ -19,6 +19,7 @@ NEWSPIDER_MODULE = 'boardcomment.spiders'
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
 
+LoG_LEVEL = "ERROR"
 LOG_FILE = 'board_comment.log'
 
 
