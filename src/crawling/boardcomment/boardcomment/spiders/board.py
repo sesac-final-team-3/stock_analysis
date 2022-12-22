@@ -2,33 +2,41 @@ import scrapy
 import requests
 from bs4 import BeautifulSoup
 from boardcomment.items import BoardcommentItem
+import pandas as pd
 
 class BoardSpider(scrapy.Spider):
     name = 'board'
     start_urls = ['https://finance.naver.com/item/board.naver?code=000270']
-
+   
     def start_requests(self):
         urls = []
-        # 기업 종목코드번호 일단은 기아만!
-        company_list = ['000270']
-
+        # company_df = pd.read_csv('C:/Users/seon/Desktop/stock_analysis/Data/kospi200.csv')
+        # company_list = company_df.iloc[:,1]
+        # 코스피 "005930","000270"
+        company_list = ["373220","207940","000660","006400","051910","005380","035420","068270"]
+        # 코스닥 
+        # company_list = ["091990","247540","066970","263750","293490","112040","028300","278280","035760","058470"]
         for company in company_list:
+
             # 마지막 페이지 찾기
-            end_url = f'https://finance.naver.com/item/board.naver?code={company}&page=20000'
+            end_url = f'https://finance.naver.com/item/board.naver?code={company}&page=100000'
             header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
             response = requests.get(end_url,headers=header)
             soup = BeautifulSoup(response.text,"html.parser")
             end_pages = soup.select_one('td .on a').text
-            print(int(end_pages.replace(',',''))+1)
+            # print(end_url)
+            # print(int(end_pages.replace(',',''))+1)
+            # print(response)
             for page in range(1,int(end_pages.replace(',',''))+1):
-                print(page)
+                # print(page)
             # 테스트 page값
             # for page in range(1,2):
                 try: 
                     url = f'https://finance.naver.com/item/board.naver?code={company}&page={page}'
-                    urls.append([company, url])
+                    urls.append([f'{company}', url])
+                    print(url)
                 except Exception as e:
-                    # print(e)
+                    print(e)
                     pass
 
         for com_code, url in urls:
