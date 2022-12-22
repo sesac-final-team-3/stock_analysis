@@ -12,11 +12,11 @@ class BoardSpider(scrapy.Spider):
         urls = []
         # company_df = pd.read_csv('C:/Users/seon/Desktop/stock_analysis/Data/kospi200.csv')
         # company_list = company_df.iloc[:,1]
-        company_list = [5930]
+        company_list = ["000270"]
         for company in company_list:
 
             # 마지막 페이지 찾기
-            end_url = f'https://finance.naver.com/item/board.naver?code={company:06d}&page=100000'
+            end_url = f'https://finance.naver.com/item/board.naver?code={company}&page=100000'
             header = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36'}
             response = requests.get(end_url,headers=header)
             soup = BeautifulSoup(response.text,"html.parser")
@@ -29,8 +29,8 @@ class BoardSpider(scrapy.Spider):
             # 테스트 page값
             # for page in range(1,2):
                 try: 
-                    url = f'https://finance.naver.com/item/board.naver?code={company:06d}&page={page}'
-                    urls.append([f'{company:06d}', url])
+                    url = f'https://finance.naver.com/item/board.naver?code={company}&page={page}'
+                    urls.append([f'{company}', url])
                     print(url)
                 except Exception as e:
                     print(e)
