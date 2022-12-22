@@ -12,7 +12,10 @@ class BoardSpider(scrapy.Spider):
         urls = []
         # company_df = pd.read_csv('C:/Users/seon/Desktop/stock_analysis/Data/kospi200.csv')
         # company_list = company_df.iloc[:,1]
-        company_list = ["000270"]
+        # 코스피 "005930","000270"
+        company_list = ["373220","207940","000660","006400","051910","005380","035420","068270"]
+        # 코스닥 
+        # company_list = ["091990","247540","066970","263750","293490","112040","028300","278280","035760","058470"]
         for company in company_list:
 
             # 마지막 페이지 찾기
