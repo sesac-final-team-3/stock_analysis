@@ -16,11 +16,11 @@
 
 */
 import Index from "views/Index.js";
-import Profile from "views/examples/Profile.js";
-import Maps from "views/examples/Maps.js";
-import Register from "views/examples/Register.js";
-import Login from "views/examples/Login.js";
-import Tables from "views/examples/Tables.js";
+//import Profile from "views/examples/Profile.js";
+import Finance from "views/examples/Finance.js";
+//import Register from "views/examples/Register.js";
+//import Login from "views/examples/Login.js";
+//import Tables from "views/examples/Tables.js";
 import Icons from "views/examples/Icons.js";
 //메뉴탭 아이콘
 var routes = [
@@ -32,17 +32,17 @@ var routes = [
     layout: "/admin"
   },
   {
-    path: "/icons",
+    path: "/news",
     name: "News",
     icon: "ni ni-planet text-blue",
     component: Icons,
     layout: "/admin"
   },
   {
-    path: "/maps",
+    path: "/finance",
     name: "Finance",
     icon: "ni ni-pin-3 text-orange",
-    component: Maps,
+    component: Finance,
     layout: "/admin"
   },
   // {
