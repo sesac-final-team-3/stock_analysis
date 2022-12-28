@@ -4,9 +4,9 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ScrollToTop } from './components/scroll-to-top'
 import Home from './routes/home'
 import About from './routes/about'
-import Contact from './routes/contact'
-import Faqs from './routes/faqs'
-import Support from './routes/support'
+import News from './routes/news'
+import Main from './routes/main'
+import Finance from './routes/finance'
 
 export default function App() {
   /**
@@ -23,9 +23,9 @@ export default function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="about" element={<About />} />
-          <Route path="contact" element={<Contact />} />
-          <Route path="faqs" element={<Faqs />} />
-          <Route path="support" element={<Support />} />
+          <Route path="news" element={<News />} />
+          <Route path="main" element={<Main />} />
+          <Route path="finance" element={<Finance />} />
         </Routes>
       </ScrollToTop>
     </BrowserRouter>
