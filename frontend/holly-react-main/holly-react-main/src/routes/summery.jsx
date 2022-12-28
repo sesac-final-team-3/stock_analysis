@@ -3,11 +3,11 @@ import React from 'react'
 import { Layout } from '../components/layout'
 import { Article, ArticleContent, ArticleMedia } from '../components/article'
 
-export default function FaqsPage() {
+export default function SummeryPage() {
   return (
     <Layout>
       <Article>
-        <ArticleContent title="FAQ's">
+        <ArticleContent title="Summery">
           <p>Add your FAQ content here.</p>
         </ArticleContent>
 

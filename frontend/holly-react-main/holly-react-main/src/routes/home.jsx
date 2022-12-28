@@ -2,7 +2,7 @@ import React from 'react'
 
 import { Layout } from '../components/layout'
 import { Hero } from '../components/hero'
-import { HeroIllustration } from '../components/hero-illustration'
+// import { HeroIllustration } from '../components/hero-illustration'
 
 export default function HomePage() {
   return (
@@ -10,7 +10,7 @@ export default function HomePage() {
       <Hero
         title="Let's go upward!"
         content=""
-        illustration={<HeroIllustration />}
+        // illustration={<HeroIllustration />}
       />
     </Layout>
   )
