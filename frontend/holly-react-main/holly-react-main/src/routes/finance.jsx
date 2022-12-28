@@ -3,12 +3,12 @@ import React from 'react'
 import { Layout } from '../components/layout'
 import { Article, ArticleContent, ArticleMedia } from '../components/article'
 
-export default function ContactPage() {
+export default function SupportPage() {
   return (
     <Layout>
       <Article>
-        <ArticleContent title="Contact">
-          <p>Add your contact information here.</p>
+        <ArticleContent title="Finance">
+          <p>Add your support content here.</p>
         </ArticleContent>
 
         <ArticleMedia>
