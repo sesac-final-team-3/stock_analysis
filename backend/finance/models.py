@@ -1,6 +1,7 @@
 from django.db import models
 from summary.models import TbName
 
+
 # Create your models here.
 class TbOHLCV(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
@@ -42,6 +43,7 @@ class TbProfit(models.Model):
 	class Meta:
 		db_table = 'tb_profit'
 
+
 class TbShort(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
 	code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
@@ -52,8 +54,10 @@ class TbShort(models.Model):
 	market_cap = models.IntegerField(db_column='market_cap', blank=True, null=True)
 	weight = models.IntegerField(db_column='weight', blank=True, null=True)
 
+
 	class Meta:
 		db_table = 'tb_short'
+
 
 class TbTradingValue(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
@@ -64,8 +68,10 @@ class TbTradingValue(models.Model):
 	etc_corporation = models.IntegerField(db_column='etc_corporation', blank=True, null=True)
 	foreigner = models.IntegerField(db_column='foreigner', blank=True, null=True)
 
+
 	class Meta:
 		db_table = 'tb_tdvalue'
+
 
 class TbTradingVolume(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
@@ -76,8 +82,10 @@ class TbTradingVolume(models.Model):
 	etc_corporation = models.IntegerField(db_column='etc_corporation', blank=True, null=True)
 	foreigner = models.IntegerField(db_column='foreigner', blank=True, null=True)
 
+
 	class Meta:
 		db_table = 'tb_tdvolume'
+
 
 class TbForeignerInvestment(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
