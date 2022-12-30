@@ -90,6 +90,7 @@ class TbTradingVolume(models.Model):
 class TbForeignerInvestment(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
 	code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
+	date = models.DateTimeField(db_column='date', blank=True, null=True)
 	volume = models.IntegerField(db_column='volume', blank=True, null=True)
 	holding_volume = models.IntegerField(db_column='holding_volume', blank=True, null=True)
 	shareholding = models.IntegerField(db_column='shareholding', blank=True, null=True)
