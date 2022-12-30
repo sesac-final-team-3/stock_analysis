@@ -33,13 +33,12 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
-    # Custom apps
-    'finance',
-    'news',
-    'summary',
-    # 3rd party apps
-    # 'rest_framework',
-    
+    # Custom app
+    "white_hazelnut",
+    "summary",
+    "finance",
+    "news",
+
     
     "django.contrib.admin",
     "django.contrib.auth",

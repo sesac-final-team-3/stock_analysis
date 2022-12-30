@@ -1,5 +1,6 @@
 from django.db import models
-from ..summary.models import TbName
+from summary.models import TbName
+
 
 # Create your models here.
 class TbOHLCV(models.Model):
@@ -14,6 +15,10 @@ class TbOHLCV(models.Model):
 	trading_volume = models.IntegerField(db_column='trading_volume', blank=True, null=True)
 	trading_value = models.IntegerField(db_column='trading_value', blank=True, null=True)
 
+	class Meta:
+		db_table = 'tb_ohlcv'
+	
+
 class TbFundamental(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
 	code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
@@ -25,12 +30,18 @@ class TbFundamental(models.Model):
 	DIV = models.FloatField(db_column='DIV', blank=True, null=True)
 	DPS = models.FloatField(db_column='DPS', blank=True, null=True)
 
+	class Meta:
+		db_table = 'tb_fundmental'
+	
 
 class TbProfit(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
 	code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
 	date = models.DateTimeField(db_column='date', blank=True, null=True)
 	profit = models.IntegerField(db_column='profit', blank=True, null=True)
+	
+	class Meta:
+		db_table = 'tb_profit'
 
 
 class TbShort(models.Model):
@@ -44,6 +55,10 @@ class TbShort(models.Model):
 	weight = models.IntegerField(db_column='weight', blank=True, null=True)
 
 
+	class Meta:
+		db_table = 'tb_short'
+
+
 class TbTradingValue(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
 	code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
@@ -52,6 +67,10 @@ class TbTradingValue(models.Model):
 	retail_investor = models.IntegerField(db_column='retail_investor', blank=True, null=True)
 	etc_corporation = models.IntegerField(db_column='etc_corporation', blank=True, null=True)
 	foreigner = models.IntegerField(db_column='foreigner', blank=True, null=True)
+
+
+	class Meta:
+		db_table = 'tb_tdvalue'
 
 
 class TbTradingVolume(models.Model):
@@ -64,6 +83,10 @@ class TbTradingVolume(models.Model):
 	foreigner = models.IntegerField(db_column='foreigner', blank=True, null=True)
 
 
+	class Meta:
+		db_table = 'tb_tdvolume'
+
+
 class TbForeignerInvestment(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
 	code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
@@ -72,3 +95,6 @@ class TbForeignerInvestment(models.Model):
 	shareholding = models.IntegerField(db_column='shareholding', blank=True, null=True)
 	limit_volume = models.IntegerField(db_column='limit_volume', blank=True, null=True)
 	exhaustion_rate = models.IntegerField(db_column='exhaustion_rate', blank=True, null=True)
+
+	class Meta:
+		db_table = 'tb_forinv'
