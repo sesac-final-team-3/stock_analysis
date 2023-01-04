@@ -37,7 +37,7 @@ class TbFundamental(models.Model):
 class TbProfit(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
 	code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
-	date = models.DateTimeField(db_column='date', blank=True, null=True)
+	date = models.IntegerField(db_column='date', blank=True, null=True)
 	profit = models.IntegerField(db_column='profit', blank=True, null=True)
 	
 	class Meta:
