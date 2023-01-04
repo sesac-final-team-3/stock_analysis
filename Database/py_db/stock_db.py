@@ -10,7 +10,9 @@ class stock_db:
     def __init__(self, db:MariaDB) -> None:
         self.db = db
         
-    def insert_news(self, df:pd.DataFrame) -> bool:
+
+    def insert_stock_code(self, df:pd.DataFrame) -> bool:
+
         '''
         종목 관련 데이터 프레임을 통해 데이터베이스에 종목 정보를 삽입합니다. 
         '''
