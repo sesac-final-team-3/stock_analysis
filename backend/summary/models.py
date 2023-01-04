@@ -16,8 +16,7 @@ class TbInfo(models.Model):
     established_date = models.DateTimeField(db_column='established_date', blank=True, null=True)
     listed_date = models.DateTimeField(db_column='listed_date', blank=True, null=True)
     CEO = models.CharField(db_column='CEO',max_length=8, blank=True, null=True)
-    settlement_date = models.DateTimeField(db_column='settlement_date', blank=True, null=True)
-    tel = models.CharField(db_column='tel', max_length=16, blank=True, null=True)
+    tel = models.CharField(db_column='tel', max_length=16,blank=True, null=True)
 
     class Meta:
         db_table = 'tb_info'

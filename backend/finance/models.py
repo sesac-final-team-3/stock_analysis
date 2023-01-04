@@ -13,7 +13,7 @@ class TbOHLCV(models.Model):
 	low_price = models.IntegerField(db_column='low_price', blank=True, null=True)	
 	close_price = models.IntegerField(db_column='close_price', blank=True, null=True)	
 	trading_volume = models.IntegerField(db_column='trading_volume', blank=True, null=True)
-	trading_value = models.IntegerField(db_column='trading_value', blank=True, null=True)
+	trading_value = models.BigIntegerField(db_column='trading_value', blank=True, null=True)
 
 	class Meta:
 		db_table = 'tb_ohlcv'
