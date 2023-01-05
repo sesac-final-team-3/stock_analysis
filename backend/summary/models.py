@@ -13,9 +13,9 @@ class TbName(models.Model):
 class TbInfo(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
     code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
-    sector = models.CharField(db_column='sector', max_length=32,blank=True, null=True)
+    sector = models.CharField(db_column='sector', max_length=64,blank=True, null=True)
     listed_date = models.DateTimeField(db_column='listed_date', blank=True, null=True)
-    CEO = models.CharField(db_column='CEO', max_length=8, blank=True, null=True)
+    CEO = models.CharField(db_column='CEO', max_length=64, blank=True, null=True)
     homepage = models.CharField(db_column='homepage', max_length=64,blank=True, null=True)
 
     class Meta:
