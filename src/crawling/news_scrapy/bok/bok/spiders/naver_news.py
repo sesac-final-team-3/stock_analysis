@@ -19,8 +19,8 @@ class NaverNewsSpider(scrapy.Spider):
 
     def start_requests(self):
         # start_date = ' 20221215'
-        end_date = '20221222'
-        search_day = ' 20211222'
+        end_date = '20221130'
+        search_day = ' 20221101'
         self.retry_url = []
         url_list = []
         while True:
@@ -38,7 +38,7 @@ class NaverNewsSpider(scrapy.Spider):
                     #
                     #
                     # h_day, news_company)
-                    url = 'https://search.naver.com/search.naver?&where=news&query=%EA%B8%B0%EC%95%84&sm=tab_pge&sort=1&photo=0&field=0&reporter_article=&pd=3&ds={0}&de={1}&news_office_checked={2}&docid=&nso=so:dd,p:,a:all&mynews=1&start=1&refresh_start=0'.format(
+                    url = 'https://search.naver.com/search.naver?&where=news&query=현대차&sm=tab_pge&sort=1&photo=0&field=0&reporter_article=&pd=3&ds={0}&de={1}&news_office_checked={2}&docid=&nso=so:dd,p:,a:all&mynews=1&start=1&refresh_start=0'.format(
                         search_day, search_day, news_company)
                     # print(url, search_day)
                     url_list.append([url, search_day])
@@ -133,7 +133,7 @@ class NaverNewsSpider(scrapy.Spider):
             title = response.xpath('//*[@id="user-container"]/div[3]/header/div/div/text()').get()
             # 인포맥스 본문 양식
             content = response.xpath('//*[@id="article-view-content-div"]/text()').getall()
-            re_content = ' '.join([re.sub('[^a-z가-힣ㄱ-ㅎ0-9., ]', '', cnt).strip() for cnt in content]).strip()
+            re_content = ' '.join([re.sub('[^a-zA-Z가-힣ㄱ-ㅎ0-9., ]', '', cnt).strip() for cnt in content]).strip()
             if response.xpath('//*[@id="article-view-content-div"]/div/figure/img/@src') != []:
                 photourl = photo_base + response.xpath(
                     '//*[@id="article-view-content-div"]/div/figure/img/@src').getall()
@@ -187,7 +187,7 @@ class NaverNewsSpider(scrapy.Spider):
                 title = response.xpath('//*[@id="container"]/section/div[2]/section/div/div/div/h2/text()').get()
                 content = response.xpath(
                     '//*[@id="container"]/section/div[3]/section/div[1]/div[1]/div[1]/text()').getall()
-                re_content = ' '.join([re.sub('[^a-z가-힣ㄱ-ㅎ0-9., ]', '', cnt).strip() for cnt in content]).strip()
+                re_content = ' '.join([re.sub('[^a-zA-Z가-힣ㄱ-ㅎ0-9., ]', '', cnt).strip() for cnt in content]).strip()
                 # 다른 html 디버깅
                 if re_content != '':
                     pass
@@ -267,13 +267,15 @@ class NaverNewsSpider(scrapy.Spider):
             else:
                 content = 'retry'
 
-        re_content = ' '.join([re.sub('[^a-z가-힣ㄱ-ㅎ0-9., ]', '', cnt).strip() for cnt in content]).strip()
+        re_content = ' '.join([re.sub('[^a-zA-Z가-힣ㄱ-ㅎ0-9., ]', '', cnt).strip() for cnt in content]).strip()
         if content != [] and re_content != '' and content != 'retry':
             if title:
-                re_title = re.sub('[^a-z가-힣ㄱ-ㅎ0-9., ]', '', title).strip()
+                # re_title = re.sub('[^a-zA-Z가-힣ㄱ-ㅎ0-9., ]', '', title).strip()
+                re_title = title.strip()
             else:
                 re_title = ''
-            item['content'] = re_title + re_content
+            item['title'] = re_title
+            item['content'] = re_content
             item['photourl'] = photourl
             yield item
         elif content == 'retry':
