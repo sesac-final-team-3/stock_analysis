@@ -1,20 +1,41 @@
 <!-- 번호 매기기 -->
 
 <div style="text-align: center; margin: 1rem 0;">
+
     {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }}"
-       class="btn btn-secondary rounded-pill">
-        {{ page_obj.previous_page_number }}
+    <a class="btn" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <!-- <a href="?page={{ page_obj.previous_page_number }}"
+        class="btn">
+        {{ page_obj.previous_page_number }} -->
     </a>
     {% endif %}
-    <a href="?page={{ page_obj.number }}"
-       class="btn btn-secondary rounded-pill active">
-        {{ page_obj.number }}
+ 
+    {% for i in "12345"|rjust:5 %}
+    <a href="?page={{i}}" class="btn">
+        {{i}}
     </a>
+    {% endfor %}
+    <!-- <a href="?page=1"
+       class="btn">
+        1
+    </a>
+    <a href="?page=2"
+       class="btn">
+        2
+    </a>
+    <a href="?page=3"
+       class="btn">
+        3
+    </a> -->
     {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}"
-       class="btn btn-secondary rounded-pill">
+    <!-- <a href="?page={{ page_obj.next_page_number }}"
+       class="btn">
         {{ page_obj.next_page_number }}
+    </a> -->
+
+    <a class="btn" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
     </a>
     {% endif %}
 </div>
