@@ -40,6 +40,8 @@ a:hover {
     margin: 1rem 0;
 }
 
-.news_image {
-    transform: translate(300px,300px)
+.news_box {
+    width: 4rem;
+    height: 2rem;
+    background-color: brown;
 }

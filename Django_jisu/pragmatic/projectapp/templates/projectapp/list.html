@@ -15,7 +15,6 @@
     table-layout: fixed;
   }
 
-
   .container div {
     display: block;
     justify-content: left;
@@ -31,7 +30,7 @@
   }
 
   .cluster_body {
-    padding: 13px 0 0;
+    padding: 13px;
   }  
 
   ul {
@@ -39,12 +38,14 @@
   }
 
   .cluster_list {
-    padding-bottom: 23px;
+    padding-top: 23px;
+    padding-left: 60px;
+    padding-right: 60px;
   }
 
   .cluster_item {
     display: table;
-    padding-bottom: 11px;
+    padding-bottom: 22px;
     width: 100%;
     table-layout: fixed;
     letter-spacing: -1px;
@@ -97,11 +98,25 @@
     aspect-ratio: auto 132 / 90;
     height: 90px;
   }
+  .jisubox{
+    width : 1080px;
+    height: auto;
+    background-color: none;
+    border: 1px solid #dd2626;
+    border-radius: 1rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
 
 
 </style>
-{% if project_list %}
+
 <table cellpadding="0" cellspacing="0" class="container"></table>
+<div class="jisubox">
   <div class="col">관련 뉴스</div>
   <tr>
     <td>
@@ -147,23 +162,11 @@
       </div>
     </td>
   </tr>
-  </div>
+  <script src="{% static 'js/magicgrid.js' %}"></script>
+  
+  {% include 'snippets/pagination.html' with page_obj=page_obj %}
 </div>
-<script src="{% static 'js/magicgrid.js' %}"></script>
-{% else %}
-<div class="text-center">
-  <h1>No Projects YET!</h1>
 </div>
-{% endif %} {% include 'snippets/pagination.html' with page_obj=page_obj %}
 
-<!-- creatproject -->
-<!-- <div style="text-align: center">
-  <a
-    href="{% url 'projectapp:create' %}"
-    class="btn btn-dark rounded-pill mt-3 mb-3 px-3"
-  >
-    Create Project
-  </a>
-</div> -->
 
 {% endblock %}

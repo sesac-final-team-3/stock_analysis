@@ -77,7 +77,8 @@ class ProjectListView(ListView):
     model = Project
     context_object_name = 'project_list'
     template_name = 'projectapp/list.html'
-    paginate_by = 8
+    paginate_by = 3
+    
 
     def get_queryset(self):
         return Project.objects.all().order_by('pk')
