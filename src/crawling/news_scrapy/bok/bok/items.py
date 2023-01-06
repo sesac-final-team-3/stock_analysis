@@ -12,6 +12,7 @@ class NaverNews(scrapy.Item):
     url = scrapy.Field()
     date = scrapy.Field()
     media = scrapy.Field()
+    title = scrapy.Field()
     content = scrapy.Field()
     photourl = scrapy.Field()
     date_hour = scrapy.Field()

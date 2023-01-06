@@ -7,7 +7,7 @@ NEWSPIDER_MODULE = 'bok.spiders'
 HTTPERROR_ALLOWED_CODES = [404]
 LOG_FILE = 'naver_news.log3'
 FEED_EXPORT_ENCODING = 'utf-8-sig'
-FEED_EXPORT_FIELDS = ['media', 'date', 'date_hour', 'url', 'content', 'photourl']
+FEED_EXPORT_FIELDS = ['media', 'date', 'date_hour', 'url', 'title', 'content', 'photourl']
 DUPEFILTER_CLASS = 'scrapy.dupefilters.BaseDupeFilter'
 
 # DOWNLOADER_MIDDLEWARES = {
