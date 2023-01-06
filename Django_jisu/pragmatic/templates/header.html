@@ -1,0 +1,32 @@
+<div class="pragmatic_header">
+    <div>
+        <h1 class="pragmatic_logo">Enterprise Analysis Contents</h1>
+        <p>뷰포인트에서 제공하는 뉴스 이슈 입니다. 각 항목을 클릭하면 긍부정 점수와 이벤트별 관련 뉴스를 확인 할 수 있습니다.</p>
+    </div>
+    <div class="pragmatic_header_navbar">
+        <a href="{% url 'articleapp:list' %}" class="prgmatic_header_nav">
+            <span>기업정보</span>
+        </a>
+        <a href="{% url 'projectapp:list' %}" class="prgmatic_header_nav">
+            <span>뉴스 이슈</span>
+        </a>
+        <a href="{% url 'subscribeapp:list' %}" class="prgmatic_header_nav">
+            <span>Subscription</span>
+        </a>
+        {% if not user.is_authenticated %}
+        <a href="{% url 'accountapp:login' %}?next={{ request.path }}" class="prgmatic_header_nav">
+            <span>Login</span>
+        </a>
+        <a href="{% url 'accountapp:create' %}" class="prgmatic_header_nav">
+            <span>SignUp</span>
+        </a>
+        {% else %}
+        <a href="{% url 'accountapp:detail' pk=user.pk %}" class="prgmatic_header_nav">
+            <span>MyPage</span>
+        </a>
+        <a href="{% url 'accountapp:logout' %}?next={{ request.path }}" class="prgmatic_header_nav">
+            <span>Logout</span>
+        </a>
+        {% endif %}
+    </div>
+</div>
