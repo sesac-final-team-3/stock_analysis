@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     "news",
 
     # 3rd party apps
-    'rest_framework',
+    # 'rest_framework',
     'corsheaders',
 
     
