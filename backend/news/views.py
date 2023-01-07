@@ -1,3 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
+from django.shortcuts import render,HttpResponse
+def news_graph(request):
+    return render(request,'newsgraph.html')
