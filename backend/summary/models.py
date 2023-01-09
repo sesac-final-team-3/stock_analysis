@@ -5,47 +5,37 @@ from django.db import models
 class TbName(models.Model):
     code = models.CharField(db_column='code', max_length=16, blank=False, null=False, primary_key=True)
     name = models.CharField(db_column='name', max_length=16, blank=False, null=False)
-    market=models.IntegerField(db_column='market',null=True)
+    market=models.IntegerField(db_column='market',blank=False,null=False)
+    sector = models.CharField(db_column='sector', max_length=32,blank=True, null=True)
+    listed_date = models.DateTimeField(db_column='listed_date', blank=True, null=True)
+    CEO = models.CharField(db_column='CEO', max_length=64, blank=True, null=True)
+    homepage = models.CharField(db_column='homepage', max_length=64,blank=True, null=True)
+    volume = models.IntegerField(db_column='volume', blank=True, null=True)
+    updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)  
 
     class Meta:
         db_table = 'tb_name'
 
-class TbInfo(models.Model):
-    id = models.AutoField(db_column='ID', primary_key=True)
-    code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
-    sector = models.CharField(db_column='sector', max_length=64,blank=True, null=True)
-    listed_date = models.DateTimeField(db_column='listed_date', blank=True, null=True)
-    CEO = models.CharField(db_column='CEO', max_length=64, blank=True, null=True)
-    homepage = models.CharField(db_column='homepage', max_length=64,blank=True, null=True)
-
-    class Meta:
-        db_table = 'tb_info'
 
 class TbReport(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
-    code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
     date = models.DateTimeField(db_column='date', blank=True, null=True)
+    code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
     firm = models.CharField(db_column='firm', max_length=16, blank=True, null=True)
     comment = models.CharField(db_column='comment', max_length=8, blank=True, null=True)
     price = models.IntegerField(db_column='price', blank=True, null=True)
+    updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True) 
 
     class Meta:
         db_table = 'tb_report'
 
-class TbKeyword(models.Model):
-    id = models.AutoField(db_column='ID', primary_key=True)
-    code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
-    date = models.DateTimeField(db_column='date', blank=True, null=True)
-    keyword = models.JSONField(db_column='keyword', blank=True, null=True)
-
-    class Meta:
-        db_table = 'tb_keyword'
 
 class TbSentimental(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
     code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
-    news = models.JSONField(db_column='news', blank=True, null=True)
+    news = models.TextField(db_column='news', blank=True, null=True)
     comment = models.JSONField(db_column='comment', blank=True, null=True)
+    updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True) 
 
     class Meta:
         db_table = 'tb_senti'
