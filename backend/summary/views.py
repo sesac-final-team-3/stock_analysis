@@ -1,3 +1,3 @@
-from django.shortcuts import render
-
-# Create your views here.
+from django.shortcuts import render,HttpResponse
+def summary(request):
+    return render(request,'summary.html')
