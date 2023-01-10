@@ -10,7 +10,7 @@ class TbNews(models.Model):
     url = models.TextField(db_column='url', blank=True, null=True)
     title = models.CharField(db_column='title', max_length=64, blank=True, null=True)
     content = models.TextField(db_column='content', blank=True, null=True)
-    photourl = models.CharField(db_column='photourl', max_length=255, blank=True, null=True)
+    photourl = models.TextField(db_column='photourl', blank=True, null=True)
     graph = models.TextField(db_column='graph', blank=True, null=True)
     updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)
 

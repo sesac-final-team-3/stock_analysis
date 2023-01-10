@@ -1,0 +1,9 @@
+<body>
+    {% csrf_token %}
+    <h1>checkpoint</h1>
+    {{summary }}
+    {% for class in summary.all %}
+        <h1>{{class.CEO}}</h1> 
+        </br>
+    {% endfor %}
+</body>
