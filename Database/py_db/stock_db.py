@@ -11,16 +11,17 @@ class stock_db:
         self.db = db
         
 
-    def insert_stock_code(self, df:pd.DataFrame) -> bool:
+    def insert_stock_info(self, df:pd.DataFrame) -> bool:
 
         '''
         종목 관련 데이터 프레임을 통해 데이터베이스에 종목 정보를 삽입합니다. 
         '''
         # 데이터프레임 drop_duplicates()해서 df에 적용
         # df.drop_duplicates(subset='URL',inplace=True) # 중복제거
-        # df.fillna('', inplace=True) # TypeError: replace() argument 1 must be str, not float
-        print('### 종목관련 (code, name, market)에 대한 정보가 들어 왔습니다.')
+        # df.fillna('', inplace=True) # TypeError: replace() argument 1 must be str, not float 
+        print('### 종목관련 (code, name, market,sector, listed_date, CEO, homepage , market_cap)에 대한 정보가 들어 왔습니다.')
         columns = df.columns
+        
         df.reset_index(inplace=True)
         df = df[columns]
 
