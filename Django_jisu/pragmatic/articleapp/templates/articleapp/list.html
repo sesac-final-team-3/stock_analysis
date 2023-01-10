@@ -4,52 +4,107 @@
 {% block content %}
 
 <style>
+.company_name{
+    margin-left: 5rem;
+}
 
-    .container {
-        padding: 0;
-        margin: 0, auto;
-    }
+.companyinfo_box{
+    width : 1080px;
+    height: 230px;
+    background-color: none;
+    border: 1px solid #E8E8E8;
+    border-radius: 10px;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: auto;
+    text-align: center;
+    display: felx;
+    position: relative;
+  }
 
-    .container a {
-      width: 45%;
-      max-width: 250px;
-    }
+.companyinfo {
+    display: inline-block;
+    width: 200px;
+    text-align: left;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: 120px;
+    flex: 1;
+    padding: auto;
+}
 
-    .container div {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      
-      border-radius: 1rem;
-    }
+.comment_box {
+    display: inline-block;
+    width: 200px;
+    text-align: left;
+    margin: 20px;
+    margin-left: auto;
+    margin-right: 120px;
+    flex: 1;
+    text-align: center;
+}
 
-    .container img {
-      width: 100%;
-      border-radius: 1rem;
-    }
+.report_box {
+    display: inline-block;
+    width: 300px;
+    flex: 1;
+    transform: translate(10px,75px);
+
+}
+
+.report_opinion {
+    font-size: 30;
+    font-weight: 800;
+    letter-spacing: 2px;
+    display: inline-block;
+
+}
+
+.report_circle {
+    background-color:#cd2626;
+    width:80px;
+    height:80px;
+    border-radius:75px;
+    text-align:center;
+    margin: 0;
+    display: inline-block;
+    font-size:12px;
+    vertical-align:middle;
+    line-height:150px;
+}
+
+.event_box{
+    width : 1080px;
+    height: 300px;
+    background-color: none;
+    border: 1px solid #E8E8E8;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 2rem;
+    padding-left: 1rem;
+    padding-right: 1rem;    
+}
+
 
 </style>
-    {% if article_list %}
-    <div class="container">
-        {% for article in article_list %}
+<main class="company_name">LG에너지솔루션</main>
 
-        {% endfor %}
+<div class="companyinfo_box">
+    <div class="companyinfo">기업개요</div>
+    <div class="comment_box">시장반응</div>
+    <div class="report_box">
+        <div class="report_opinion">애널리스트 의견</div>
+        <div class="report_circle"></div>
     </div>
+
+
     <script src="{% static 'js/magicgrid.js' %}"></script>
-    {% else %}
-    <div class="text-center">
-        <h1>No Articles YET!</h1>
-    </div>
-    {% endif %}
 
-    {% include 'snippets/pagination.html' with page_obj=page_obj %}
-
-    <div style="text-align: center">
-        <a href="{% url 'articleapp:create' %}" class="btn btn-dark rounded-pill mt-3 mb-3 px-3">
-            Create Article
-        </a>
-    </div>
-
-
+</div>
+<div class="event_box">
+이벤트별 키워드
+</div>
 
 {% endblock %}
