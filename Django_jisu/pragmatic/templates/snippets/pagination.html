@@ -11,9 +11,9 @@
     </a>
     {% endif %}
  
-    {% for i in "12345"|rjust:5 %}
-    <a href="?page={{i}}" class="btn">
-        {{i}}
+    {% for i in "x"|rjust:"10" %}
+    <a href="?page={{forloop.counter}}" class="btn">
+        {{forloop.counter}}
     </a>
     {% endfor %}
     <!-- <a href="?page=1"

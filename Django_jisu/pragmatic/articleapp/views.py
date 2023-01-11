@@ -12,7 +12,6 @@ from articleapp.forms import ArticleCreationForm
 from articleapp.models import Article
 
 
-
 @method_decorator(login_required, 'get')
 @method_decorator(login_required, 'post')
 class ArticleCreateView(CreateView):

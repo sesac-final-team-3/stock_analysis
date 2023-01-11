@@ -27,12 +27,12 @@ class NewsCreateView(CreateView):
         return super().form_valid(form)
 
     def get_success_url(self):
-        return reverse('newsapp:detail', kwargs={'pk': self.object.pk})
+        return reverse('projectapp:detail', kwargs={'pk': self.object.pk})
 
 
 class NewsDetailView(DetailView, MultipleObjectMixin):
     model = News
-    context_object_name = 'target_project'
+    context_object_name = 'target_news'
     template_name = 'newsapp/detail.html'
 
     paginate_by = 16
@@ -46,10 +46,10 @@ class NewsUpdateView(UpdateView):
     model = News
     context_object_name = 'target_project'
     form_class = NewsCreationForm
-    template_name = 'newsapp/update.html'
+    template_name = 'newstapp/update.html'
 
     def get_success_url(self):
-        return reverse('newsapp:detail', kwargs={'pk': self.object.pk})
+        return reverse('newstapp:detail', kwargs={'pk': self.object.pk})
 
 
 @method_decorator(project_ownership_required, 'get')
