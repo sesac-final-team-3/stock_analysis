@@ -42,6 +42,7 @@
 }
 
 .stock_info_item_inner{
+    width: 140%;
     box-sizing: border-box;
     word-break: break-all;
     word-wrap: break-word;
@@ -63,7 +64,29 @@ ul {
     width: 220px;
     top: 3px;
     bottom: 3px;
-    
+}
+
+.market{
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    display: inline-block;
+    padding-top: 1px;
+    color: #878787;
+    letter-spacing: -.5px;
+    vertical-align: top;
+}
+
+.value{
+    width: 100%;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    flex: 1 1;
+    padding-left: 30px;
+    color: #000;
+    text-align: right;
+    letter-spacing: -.3px;
 }
 
 .comment_box {
@@ -77,8 +100,6 @@ ul {
 .report_box {
     flex: 1;
     display: inline-block;
-    width: 200px;
-    height: 50px;
     transform: translate(10px,80px);
 }
 
@@ -88,11 +109,13 @@ ul {
     letter-spacing: 2px;
     display: flex;
     text-align: left;
+
 }
 
 .report_date {
     font-size: 10;
     display: flex;
+
 }
 
 .report_circle {
@@ -100,27 +123,37 @@ ul {
     width:80px;
     height:80px;
     border-radius:75px;
-    text-align:center;
-    margin: 0;
-    display: inline-block;
-    font-size:12px;
-    vertical-align:middle;
-    line-height:150px;
-    transform: translate(50px,-60px);
+    float: left;
+    vertical-align: middle;
+    margin: 0%;
+    transform: translate(20%,-20%);
+}
+
+.report_item_inner{
+    box-sizing: border-box;
+    word-break: break-all;
+    word-wrap: break-word;
+    position: relative;
+    float: left;
+    height: 100%;
+    border-bottom: 1px;
+
 }
 
 .event_box{
-    width : 1080px;
-    height: 300px;
+    width: 95%;
     background-color: none;
     border: 1px solid #E8E8E8;
     border-radius: 10px;
     margin-left: auto;
     margin-right: auto;
-    padding-top: 2rem;
+    padding-top: 3rem;
     padding-left: 1rem;
-    padding-right: 1rem;    
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    display: flex;
 }
+
 .line_top {
     display: inline-flex;
     height: 10px;
@@ -151,35 +184,37 @@ ul {
         <ul class="stock_info">
             <li class="stock_info_item">
                 <div class="stock_info_item_inner">
-                    <strong>거래소</strong>
-                    <span>KOSPI</span>
+                    <strong class="stock_item">거래소</strong>
+                    <span class="value">KOSPI</span>
                 </div>
             </li>
             <li class="stock_info_item">
                 <div class="stock_info_item_inner">
-                    <strong>CEO</strong>
-                    <span>권영수</span>
+                    <strong class="stock_item">CEO</strong>
+                    <span class="value">권영수</span>
                 </div>
             </li>
             <li class="stock_info_item">
                 <div class="stock_info_item_inner">
-                    <strong>상장일</strong>
-                    <span>2022년 1월 27일</span>
+                    <strong class="stock_item">상장일</strong>
+                    <span class="value">2022년 1월 27일</span>
                 </div>
             </li>
             <li class="stock_info_item">
                 <div class="stock_info_item_inner">
-                    <strong>시가총액</strong>
-                    <span>111.74조</span>
+                    <strong class="stock_item">시가총액</strong>
+                    <span class="value">111.74조</span>
                 </div>
             </li>
         </ul>
-        <span class="comment_box">시장반응</span>
-        <span class="report_box">
-            <div class="report_opinion">애널리스트 의견</div>
-            <div class="report_date">2023년 1월 10일 기준</div>
-            <span class="report_circle"></span>
-        </span>
+        <div class="comment_box">시장반응</div>
+        <div class="report_box">
+            <div class="report_item_inner">
+                <span class="report_opinion">애널리스트 의견</span>
+                <span class="report_date">2023년 1월 10일 기준</span>
+            </div>
+            <div class="report_circle"></div>
+        </div>
     </div>
 
 
