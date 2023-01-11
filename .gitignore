@@ -4,6 +4,8 @@
 *.pdf
 *.csv
 *.txt
+*.log3
+
 ### Django ###
 *.log
 *.pot
