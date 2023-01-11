@@ -1,9 +1,9 @@
 from django.forms import ModelForm
 
-from projectapp.models import Project
+from newsapp.models import News
 
 
-class ProjectCreationForm(ModelForm):
+class NewsCreationForm(ModelForm):
     class Meta:
-        model = Project
+        model = News
         fields = ['image', 'title', 'description']
