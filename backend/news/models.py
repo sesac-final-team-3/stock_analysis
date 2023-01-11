@@ -11,7 +11,6 @@ class TbNews(models.Model):
     title = models.TextField(db_column='title', blank=True, null=True)
     content = models.TextField(db_column='content', blank=True, null=True)
     photourl = models.TextField(db_column='photourl', blank=True, null=True)
-    graph = models.TextField(db_column='graph', blank=True, null=True)
     updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)
 
     class Meta:
