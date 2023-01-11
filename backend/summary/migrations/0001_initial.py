@@ -50,8 +50,8 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "volume",
-                    models.IntegerField(blank=True, db_column="volume", null=True),
+                    "market_cap",
+                    models.BigIntegerField(db_column='market_cap', blank=True, null=True),
                 ),
                 (
                     "updated_date",
@@ -69,7 +69,6 @@ class Migration(migrations.Migration):
                     "id",
                     models.AutoField(db_column="ID", primary_key=True, serialize=False),
                 ),
-                ("news", models.TextField(blank=True, db_column="news", null=True)),
                 (
                     "comment",
                     models.JSONField(blank=True, db_column="comment", null=True),
@@ -87,6 +86,12 @@ class Migration(migrations.Migration):
                         on_delete=django.db.models.deletion.DO_NOTHING,
                         to="summary.tbname",
                     ),
+                ),
+                (
+                    "date",
+                    models.DateTimeField(
+                        blank=True, db_column="date", null=True
+                        ),
                 ),
             ],
             options={"db_table": "tb_senti",},

@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ("summary", "0006_alter_tbname_market_cap"),
+        ("summary", "0001_initial"),
     ]
 
     operations = [

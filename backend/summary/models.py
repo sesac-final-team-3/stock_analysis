@@ -22,8 +22,8 @@ class TbReport(models.Model):
     date = models.DateTimeField(db_column='date', blank=True, null=True)
     code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
     firm = models.CharField(db_column='firm', max_length=16, blank=True, null=True)
-    comment = models.CharField(db_column='comment', max_length=8, blank=True, null=True)
-    price = models.IntegerField(db_column='price', blank=True, null=True)
+    comment = models.CharField(db_column='comment', max_length=16, blank=True, null=True)
+    price = models.CharField(db_column='price', max_length=16, blank=True, null=True)
     updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True) 
 
     class Meta:
@@ -34,9 +34,10 @@ class TbSentimental(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
     date = models.DateTimeField(db_column='date', blank=True, null=True)
     code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
-    news = models.TextField(db_column='news', blank=True, null=True)
-    comment = models.JSONField(db_column='comment', blank=True, null=True)
-    updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True) 
+    news_keyword = models.TextField(db_column='news_keyword', blank=True, null=True)
+    comment = models.TextField(db_column='comment', blank=True, null=True)
+    updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)
+    news_graph=models.TextField(db_column='news_graph',blank=True,null=True)
 
     class Meta:
         db_table = 'tb_senti'
