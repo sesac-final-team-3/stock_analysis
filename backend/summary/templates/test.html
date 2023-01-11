@@ -1,9 +1,15 @@
 <body>
     {% csrf_token %}
     <h1>checkpoint</h1>
-    {{summary }}
-    {% for class in summary.all %}
+    {% for class in code.all %}
         <h1>{{class.CEO}}</h1> 
-        </br>
+        <h1>{{class.name}}</h1>
+        <h2>{{class.sector}}</h2>
+        {% if class.market == 0%}
+            Kospi
+        {% else %}
+            Kosdaq
+        {% endif %}
+        <br>
     {% endfor %}
 </body>
