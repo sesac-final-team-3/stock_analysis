@@ -1,14 +1,18 @@
-<div class="pragmatic_header">
-    <div>
-        <h1 class="pragmatic_logo">Enterprise Analysis Contents</h1>
-        <p>뷰포인트에서 제공하는 뉴스 이슈 입니다. 각 항목을 클릭하면 긍부정 점수와 이벤트별 관련 뉴스를 확인 할 수 있습니다.</p>
-    </div>
-    <div class="pragmatic_header_navbar">
-        <a href="{% url 'articleapp:list' %}" class="prgmatic_header_nav">
-            <span>기업정보</span>
-        </a>
-        <a href="{% url 'news:list' %}" class="prgmatic_header_nav">
-            <span>뉴스 이슈</span>
-        </a>
+<div style="margin-top: 10px;">
+    <p1 style="font-size: 30px; margin-left: 20px; cursor: pointer; font-weight: bold;"onclick=location.href="{% url 'main' %}" >view<a style="color: rgb(220, 0, 0);">p</a>oint</p1>
+    <div class="pragmatic_header">
+        <div>
+            <h1 class="pragmatic_logo">Enterprise <a style="color: rgb(220, 0, 0);">Analysis</a> Contents</h1>
+            <p>뷰포인트에서 제공하는 뉴스 이슈 입니다. 각 항목을 클릭하면 긍부정 점수와 이벤트별 관련 뉴스를 확인 할 수 있습니다.</p>
+        </div>
+        <div class="pragmatic_header_navbar">
+            <a href="{% url 'articleapp:list' %}" class="prgmatic_header_nav">
+                <span>기업정보</span>
+            </a>
+            <a href="{% url 'news:list' %}" class="prgmatic_header_nav">
+                <span>뉴스 이슈</span>
+            </a>
+        </div>
+        <div class="line_top"></div>
     </div>
 </div>

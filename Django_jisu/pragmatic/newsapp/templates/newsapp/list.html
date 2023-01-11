@@ -125,7 +125,27 @@
     padding-left: 1rem;
     padding-right: 1rem;
   }
+  .line_top {
+    display: inline-flex;
+    height: 10px;
+    width: 80%;
+    background-color: #EBEBEB;
+    border: none;
+    text-align: center;
+    border-radius: 10px;
+    
+}
 
+  .line_top::after {
+      content: "";
+      flex-grow: 1;
+      margin: 0px 40% 0px 50%;
+      background-color: red;
+      height: 10px;
+      font-size: 0px;
+      line-height: 0px;
+      border-radius: 10px;
+  }
 
 
 </style>
@@ -183,6 +203,7 @@
   <script src="{% static 'js/magicgrid.js' %}"></script>
 </div>
   {% include 'snippets/pagination.html' with page_obj=page_obj %}
+
 
 </div>
 

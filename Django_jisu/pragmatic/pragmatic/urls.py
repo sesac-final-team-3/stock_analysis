@@ -17,11 +17,11 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from articleapp.views import ArticleListView
+
+import searchapp.views
 
 urlpatterns = [
-    path('', ArticleListView.as_view(), name='home'),
-
+    path('',searchapp.views.main, name='main'),
     path('admin/', admin.site.urls),
     path('articles/', include('articleapp.urls'),name='articleapp'),
     path('news/', include('newsapp.urls'),name='news'),

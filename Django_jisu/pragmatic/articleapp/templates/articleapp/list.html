@@ -5,60 +5,94 @@
 
 <style>
 .company_name{
-    margin-left: 5rem;
+    position: static;
+    text-align: left;
+    margin-left: 70px;
+    font-weight: bold;
 }
 
-.companyinfo_box{
-    width : 1080px;
-    height: 230px;
+.company_code{
+    position: flex;
+    text-align: left;
+}
+
+.company_box{
+    width: 95%;
     background-color: none;
     border: 1px solid #E8E8E8;
     border-radius: 10px;
-    margin: 20px;
     margin-left: auto;
     margin-right: auto;
-    padding: auto;
-    text-align: center;
-    display: felx;
-    position: relative;
+    padding-top: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    display: flex;
   }
 
 .companyinfo {
-    display: inline-block;
+    display: flex;
+    padding: 10px 15px 0;
+    flex-wrap: wrap;
+    letter-spacing: -.3px;
+}
+
+.stock_info_item{
     width: 200px;
-    text-align: left;
-    margin: 20px;
-    margin-left: auto;
-    margin-right: 120px;
+}
+
+.stock_info_item_inner{
+    box-sizing: border-box;
+    word-break: break-all;
+    word-wrap: break-word;
+    position: relative;
+    display: flex;
+    height: 100%;
+    border-bottom: 1px;
+    padding: 15px;
+}
+
+ul {
+    list-style-type : none;
+}
+
+.stock_info {
     flex: 1;
-    padding: auto;
+    display: inline;
+    position: relative;
+    width: 220px;
+    top: 3px;
+    bottom: 3px;
+    
 }
 
 .comment_box {
-    display: inline-block;
-    width: 200px;
-    text-align: left;
-    margin: 20px;
-    margin-left: auto;
-    margin-right: 120px;
     flex: 1;
-    text-align: center;
+    display: inline;
+    position: relative;
+    width: 100px;
+    text-align: left;
 }
 
 .report_box {
-    display: inline-block;
-    width: 300px;
     flex: 1;
-    transform: translate(10px,75px);
-
+    display: inline-block;
+    width: 200px;
+    height: 50px;
+    transform: translate(10px,80px);
 }
 
 .report_opinion {
     font-size: 30;
     font-weight: 800;
     letter-spacing: 2px;
-    display: inline-block;
+    display: flex;
+    text-align: left;
+}
 
+.report_date {
+    font-size: 10;
+    display: flex;
 }
 
 .report_circle {
@@ -72,6 +106,7 @@
     font-size:12px;
     vertical-align:middle;
     line-height:150px;
+    transform: translate(50px,-60px);
 }
 
 .event_box{
@@ -86,17 +121,65 @@
     padding-left: 1rem;
     padding-right: 1rem;    
 }
+.line_top {
+    display: inline-flex;
+    height: 10px;
+    width: 80%;
+    background-color: #EBEBEB;
+    border: none;
+    text-align: center;
+    border-radius: 10px;
+    
+}
 
+.line_top::after {
+    content: "";
+    flex-grow: 1;
+    margin: 0px 50% 0px 40%;
+    background-color: red;
+    height: 10px;
+    font-size: 0px;
+    line-height: 0px;
+    border-radius: 10px;
+}
 
 </style>
-<main class="company_name">LG에너지솔루션</main>
-
-<div class="companyinfo_box">
-    <div class="companyinfo">기업개요</div>
-    <div class="comment_box">시장반응</div>
-    <div class="report_box">
-        <div class="report_opinion">애널리스트 의견</div>
-        <div class="report_circle"></div>
+<div id="content">
+    <span class="company_name">LG에너지솔루션</span>
+    <span class="company_code">373220</span>
+    <div class="company_box">
+        <ul class="stock_info">
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong>거래소</strong>
+                    <span>KOSPI</span>
+                </div>
+            </li>
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong>CEO</strong>
+                    <span>권영수</span>
+                </div>
+            </li>
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong>상장일</strong>
+                    <span>2022년 1월 27일</span>
+                </div>
+            </li>
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong>시가총액</strong>
+                    <span>111.74조</span>
+                </div>
+            </li>
+        </ul>
+        <span class="comment_box">시장반응</span>
+        <span class="report_box">
+            <div class="report_opinion">애널리스트 의견</div>
+            <div class="report_date">2023년 1월 10일 기준</div>
+            <span class="report_circle"></span>
+        </span>
     </div>
 
 
@@ -106,5 +189,5 @@
 <div class="event_box">
 이벤트별 키워드
 </div>
-
+</div>
 {% endblock %}
