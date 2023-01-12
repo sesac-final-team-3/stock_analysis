@@ -17,7 +17,7 @@
 }
 
 .company_box{
-    width: 95%;
+    width: 1440px;
     background-color: none;
     border: 1px solid #E8E8E8;
     border-radius: 10px;
@@ -141,7 +141,8 @@ ul {
 }
 
 .event_box{
-    width: 95%;
+    width: 1440px;
+    height: 500px;
     background-color: none;
     border: 1px solid #E8E8E8;
     border-radius: 10px;
@@ -151,7 +152,7 @@ ul {
     padding-left: 1rem;
     padding-right: 1rem;
     padding-bottom: 2rem;
-    display: flex;
+    display: block;
 }
 
 .line_top {
@@ -168,8 +169,8 @@ ul {
 .line_top::after {
     content: "";
     flex-grow: 1;
-    margin: 0px 50% 0px 40%;
-    background-color: red;
+    margin: 0px 85% 0px 0px;
+    background-color: rgb(220, 0, 0);
     height: 10px;
     font-size: 0px;
     line-height: 0px;
@@ -211,17 +212,20 @@ ul {
                 </div>
             </li>
         </ul>
-        <div class="comment_box">시장반응</div>
-        <div id="testchart"></div>
-        <script>Highcharts.chart('testchart', {
+        <div class="comment_box">시장반응
+            <div id="eventchart"></div>
+        </div>
+        <script>Highcharts.chart('eventchart', {
             chart: {
-                type: 'column'
+                type: 'column',
+                width: 300,
+                height: 200
             },
             title: {
                 text: '긍부정 비율'
             },
             subtitle: {
-                text: '삼성'
+                text: 'LG에너지솔루션'
             },
             xAxis: {
                 categories: [
@@ -269,10 +273,9 @@ ul {
 
 </div>
 
-<div class="event_box">
-이벤트별 키워드 
-</div>
+<div class="event_box">이벤트별 키워드 
 <div id="container2"></div>
+</div>
 <script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
     // Create the chart
     Highcharts.stockChart('container2', {
