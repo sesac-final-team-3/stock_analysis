@@ -1,6 +1,7 @@
 <body>
     {% csrf_token %}
     <h1>checkpoint</h1>
+
     {% for class in code.all %}
         <h1>{{class.CEO}}</h1> 
         <h1>{{class.name}}</h1>
@@ -12,4 +13,8 @@
         {% endif %}
         <br>
     {% endfor %}
+    negative:
+    {{comment_value.neg}}
+    <br>
+    {{a_opinion}}
 </body>
