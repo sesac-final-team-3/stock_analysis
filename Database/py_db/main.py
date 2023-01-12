@@ -32,15 +32,40 @@ if __name__ == '__main__':
     # print('insert_OHLCV',mynews.insert_OHLCV(OHLCV_data))
 
     # tb_name
-    main_table=pd.read_csv('../../../workspace/data/krx/final_info.csv',index_col=None)
+    # main_table=pd.read_csv('../../../workspace/data/krx/final_info.csv',index_col=None)
+    # # print(main_table)
+    # # print('###',main_table.columns)
+
+
+    # main_table = main_table.replace({np.nan: None})
+    # today=datetime.today().strftime("%Y/%m/%d %H:%M:%S")
+    # main_table['updated_date']=today
     # print(main_table)
-    # print('###',main_table.columns)
+    # # print(main_table.columns,'####',len(main_table.columns))
+    # # print(datetime.today().strftime("%Y/%m/%d %H:%M:%S"))
+    # print('insert_tb_name',mystocks.insert_stock_info(main_table))
 
 
-    main_table = main_table.replace({np.nan: None})
-    today=datetime.today().strftime("%Y/%m/%d %H:%M:%S")
-    main_table['updated_date']=today
-    print(main_table)
-    # print(main_table.columns,'####',len(main_table.columns))
-    # print(datetime.today().strftime("%Y/%m/%d %H:%M:%S"))
-    print('insert_tb_name',mystocks.insert_stock_info(main_table))
+    # tb_report
+    tb_report_d=pd.read_csv('../../../workspace/data/report/kosdaq_report.csv',index_col=None)
+    tb_report_p=pd.read_csv('../../../workspace/data/report/kospi_report.csv',index_col=None)
+
+
+    tb_report_d['code']=tb_report_d['code'].apply(lambda x : str(x).zfill(6))
+    tb_report_p['code']=tb_report_p['code'].apply(lambda x : str(x).zfill(6))
+    
+    tb_report_d.rename(columns={'coment':'comment'},inplace=True)
+    tb_report_p.rename(columns={'coment':'comment'},inplace=True)
+    
+    final_report=pd.concat([tb_report_p,tb_report_d],axis=0)
+    final_report.reset_index(inplace=True)
+    final_report=final_report.drop(final_report.columns[0],axis=1)
+
+    # print(final_report.columns)
+    # print(tb_report_d)
+    # print('--'*30)
+    # print(tb_report_p)
+    # print('--'*30)
+    # print(final_report)
+
+    print('insert_tb_report',mystocks.insert_report(final_report))
