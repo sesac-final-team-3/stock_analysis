@@ -102,7 +102,9 @@ class MariaDB:
         ]
         """
         sql = f"INSERT INTO {table}({columns}) " \
-                  "VALUES ("  + ','.join(["%s"]*len(values[0])) + ");"
+                  'VALUES ('  + ','.join(["%s"]*len(values[0])) + ');'
+        # print('@@@@@@',sql)
+        # print('!!!!!!',values)
         try:
             with self.DB.cursor() as cur:
                 cur.executemany(sql, values)

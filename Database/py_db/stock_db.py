@@ -38,7 +38,8 @@ class stock_db:
         columns = df.columns
         df.reset_index(inplace=True)
         df = df[columns]
-
+        # for c in columns:
+        #     df[c] = df[c].apply(lambda x : x.replace('\'', '') if type(x)==str else None)
         return self.db.insert_many('tb_ohlcv', ','.join(df.columns), df.values.tolist()) # 성공, 실패
 
     def insert_report(self, df:pd.DataFrame) -> bool:
