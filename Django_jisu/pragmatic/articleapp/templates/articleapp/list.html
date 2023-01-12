@@ -175,7 +175,11 @@ ul {
     line-height: 0px;
     border-radius: 10px;
 }
-
+.highcharts-figure{
+    min-width: 360px;
+    max-width: 800px;
+    margin: 1rem;
+}
 </style>
 <div id="content">
     <span class="company_name">LG에너지솔루션</span>
@@ -208,6 +212,50 @@ ul {
             </li>
         </ul>
         <div class="comment_box">시장반응</div>
+        <div id="testchart"></div>
+        <script>Highcharts.chart('testchart', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: '긍부정 비율'
+            },
+            subtitle: {
+                text: '삼성'
+            },
+            xAxis: {
+                categories: [
+                    'like',
+                    'dislike',
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'ratio (%)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Tokyo',
+                data: [49.9, 71.5]
+
+            }]
+        });</script>
         <div class="report_box">
             <div class="report_item_inner">
                 <span class="report_opinion">애널리스트 의견</span>
@@ -218,11 +266,32 @@ ul {
     </div>
 
 
-    <script src="{% static 'js/magicgrid.js' %}"></script>
 
 </div>
+
 <div class="event_box">
-이벤트별 키워드
+이벤트별 키워드 
 </div>
-</div>
+<div id="container2"></div>
+<script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
+    // Create the chart
+    Highcharts.stockChart('container2', {
+        rangeSelector: {
+            selected: 1
+        },
+
+        title: {
+            text: 'Jisu chart'
+        },
+
+        series: [{
+            name: 'test',
+            data: data,
+            tooltip: {
+                valueDecimals: 2
+            }
+        }]
+    });
+});</script>
+
 {% endblock %}
