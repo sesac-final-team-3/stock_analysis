@@ -1,17 +1,17 @@
-.pragmatic_logo {
+.viewpoint_logo {
     font-family: 'Secular One', sans-serif;
 }
 
-.pragmatic_footer_button {
+.viewpoint_footer_button {
     font-size: .9rem;
 }
 
-.pragmatic_footer {
+.viewpoint_footer {
     text-align:center;
     margin-top: 2rem;
 }
 
-.pragmatic_header {
+.viewpoint_header {
     text-align:center;
     margin: 2rem 0;
 }
@@ -31,12 +31,12 @@ a:hover {
     text-decoration: none;
 }
 
-.prgmatic_header_nav {
+.viewpoint_header_nav {
     margin: 0 0.5rem;
 }
 
 
-.pragmatic_header_navbar {
+.viewpoint_header_navbar {
     margin: 1rem 0;
 }
 
