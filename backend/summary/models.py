@@ -34,7 +34,6 @@ class TbSentimental(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
     date = models.DateTimeField(db_column='date', blank=True, null=True)
     code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
-    news_keyword = models.TextField(db_column='news_keyword', blank=True, null=True)
     comment = models.TextField(db_column='comment', blank=True, null=True)
     updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)
     news_graph=models.TextField(db_column='news_graph',blank=True,null=True)

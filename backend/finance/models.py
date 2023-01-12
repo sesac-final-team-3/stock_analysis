@@ -14,7 +14,7 @@ class TbOHLCV(models.Model):
 	close_price = models.IntegerField(db_column='close_price', blank=True, null=True)	
 	trading_volume = models.IntegerField(db_column='trading_volume', blank=True, null=True)
 	trading_value = models.IntegerField(db_column='trading_value', blank=True, null=True)
-	keyword = models.TextField(db_column='keyword', blank=True, null=True)
+	news_keyword = models.TextField(db_column='news_keyword', default=dict)
 	BPS = models.FloatField(db_column='BPS', blank=True, null=True)
 	PER = models.FloatField(db_column='PER', blank=True, null=True)
 	PBR = models.FloatField(db_column='PBR', blank=True, null=True)
