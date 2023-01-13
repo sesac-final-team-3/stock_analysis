@@ -48,11 +48,11 @@ if __name__ == '__main__':
     # print('insert_OHLCV',mystocks.insert_OHLCV(OHLCV_data))
 
     # OHLCV_2
-    o_df=pd.read_csv('../../../workspace/data/krx/aa.csv',index_col=False,low_memory=False)
+    o_df=pd.read_csv('../../../workspace/data/krx/bb.csv',index_col=False,low_memory=False)
     o_df['code']=o_df['code'].apply(lambda x : str(x).zfill(6))
     # print(json.loads(o_df['news_keyword'][0].replace("'", '"')))
-    o_df['news_keyword']=o_df['news_keyword'].apply(lambda x : json.loads(x.replace("'", '"')) if type(x) == str else None)
-    o_df['news_keyword']=o_df['news_keyword'].apply(lambda x : '\t'.join([x[k].replace(',', '_') for k in x]) if type(x) == dict else None)
+    # o_df['news_keyword']=o_df['news_keyword'].apply(lambda x : json.loads(x.replace("'", '"')) if type(x) == str else None)
+    # o_df['news_keyword']=o_df['news_keyword'].apply(lambda x : '\t'.join([x[k].replace(',', '_') for k in x]) if type(x) == dict else None)
     # print(o_df[o_df['code']=='373220']['news_keyword'])
     o_df['updated_date']=datetime.today().strftime("%Y/%m/%d %H:%M:%S")
     o_df = o_df.replace({np.nan: None})
