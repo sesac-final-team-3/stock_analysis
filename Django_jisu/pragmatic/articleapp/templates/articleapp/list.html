@@ -4,16 +4,27 @@
 {% block content %}
 
 <style>
+.stock_box{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.stock_name{
+    width: auto;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
 .company_name{
-    position: static;
-    text-align: left;
-    margin-left: 70px;
     font-weight: bold;
+    font-size: 25px;
 }
 
 .company_code{
-    position: flex;
-    text-align: left;
+    margin: 0%;
+    font-size: 20px;
 }
 
 .company_box{
@@ -96,6 +107,8 @@ ul {
     width: 100px;
     text-align: left;
 }
+
+
 
 .report_box {
     flex: 1;
@@ -182,9 +195,13 @@ ul {
     margin: 1rem;
 }
 </style>
-<div id="content">
-    <span class="company_name">LG에너지솔루션</span>
-    <span class="company_code">373220</span>
+
+<div id="stock_box">
+
+    <div class="stock_name">
+        <span class="company_name">LG에너지솔루션</span>
+        <span class="company_code">373220</span>
+    </div>
     <div class="company_box">
         <ul class="stock_info">
             <li class="stock_info_item">
@@ -211,8 +228,14 @@ ul {
                     <span class="value">111.74조</span>
                 </div>
             </li>
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong class="stock_item">분류</strong>
+                    <span class="value">일차전지 및 축전지 제조업</span>
+                </div>
+            </li>
         </ul>
-        <div class="comment_box">시장반응
+        <div class="comment_box">댓글반응
             <div id="eventchart"></div>
         </div>
         <script>Highcharts.chart('eventchart', {
@@ -220,6 +243,12 @@ ul {
                 type: 'column',
                 width: 300,
                 height: 200
+            },
+            credits:{
+                enabled:false
+            },
+            exporting:{
+                enabled:false
             },
             title: {
                 text: '긍부정 비율'
@@ -268,11 +297,9 @@ ul {
             <div class="report_circle"></div>
         </div>
     </div>
-
-
-
 </div>
-
+    <p></p>
+    <p></p>
 <div class="event_box">이벤트별 키워드 
 <div id="container2"></div>
 </div>
@@ -282,7 +309,12 @@ ul {
         rangeSelector: {
             selected: 1
         },
-
+        credits:{
+            enabled:false
+        },
+        exporting:{
+            enabled:false
+        },
         title: {
             text: 'Jisu chart'
         },
