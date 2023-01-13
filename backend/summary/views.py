@@ -15,6 +15,7 @@ def summary(request):
     company_info=TbName.objects.filter(name=searching)
     # 검색어 -> code
     searched_code = int(company_info.values()[0]['code'])
+    print('@@@@',searched_code,type(searched_code))
     # print('@@@',searched_code)
 
     # comment value
@@ -25,7 +26,7 @@ def summary(request):
 
     # comment value string 인 것들 dict 화
     comment_value=json.loads(comment_info.replace("'", "\""))
-    print(comment_value)
+    # print(comment_value)
 
 
     # analyst opinion
@@ -35,5 +36,6 @@ def summary(request):
     # OHLCV data 진행예정
     ohlcv_info = TbOHLCV.objects.filter(code=searched_code)
     ohlcv = ohlcv_info.values()
-    
-    return render(request,'test.html',{'code':company_info,'comment_value':comment_value,'a_opinion':a_opinion})
+    data={'code':company_info,'comment_value':comment_value,'a_opinion':a_opinion}
+    return render(request,'test.html',data)
+

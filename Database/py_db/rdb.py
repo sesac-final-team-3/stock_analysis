@@ -62,7 +62,7 @@ class MariaDB:
                 is_multiple = ' AND' if i > 1 else ' WHERE'
                 sql_qr += f'{is_multiple} {col}{is_equal}{val}'
 
-
+    
         with self.DB.cursor() as cur:
             cur.execute(sql_qr)
             return cur.fetchall()
