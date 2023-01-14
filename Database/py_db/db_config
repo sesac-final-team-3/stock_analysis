@@ -1,0 +1,6 @@
+host=43.201.96.246
+port=3306
+user=final_3
+password=1225
+database=stock_3
+charset=utf8

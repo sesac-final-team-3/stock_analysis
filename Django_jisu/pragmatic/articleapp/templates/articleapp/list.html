@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+.stock_box{
+    display: flex;
+    flex-direction: column;
+}
+
+
+.stock_name{
+    width: auto;
+    margin-left: 5%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.company_name{
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.company_code{
+    margin: 0%;
+    font-size: 20px;
+}
+
+.company_box{
+    width: 1440px;
+    background-color: none;
+    border: 1px solid #E8E8E8;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    display: flex;
+  }
+
+.companyinfo {
+    display: flex;
+    padding: 10px 15px 0;
+    flex-wrap: wrap;
+    letter-spacing: -.3px;
+}
+
+.stock_info_item{
+    width: 200px;
+}
+
+.stock_info_item_inner{
+    width: 140%;
+    box-sizing: border-box;
+    word-break: break-all;
+    word-wrap: break-word;
+    position: relative;
+    display: flex;
+    height: 100%;
+    border-bottom: 1px;
+    padding: 15px;
+}
+
+ul {
+    list-style-type : none;
+}
+
+.stock_info {
+    flex: 1;
+    display: inline;
+    position: relative;
+    width: 220px;
+    top: 3px;
+    bottom: 3px;
+}
+
+.market{
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    display: inline-block;
+    padding-top: 1px;
+    color: #878787;
+    letter-spacing: -.5px;
+    vertical-align: top;
+}
+
+.value{
+    width: 100%;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 18px;
+    flex: 1 1;
+    padding-left: 30px;
+    color: #000;
+    text-align: right;
+    letter-spacing: -.3px;
+}
+
+.comment_box {
+    flex: 1;
+    display: inline;
+    position: relative;
+    width: 100px;
+    text-align: left;
+}
+
+
+
+.report_box {
+    flex: 1;
+    display: inline-block;
+    transform: translate(10px,80px);
+}
+
+.report_opinion {
+    font-size: 30;
+    font-weight: 800;
+    letter-spacing: 2px;
+    display: flex;
+    text-align: left;
+
+}
+
+.report_date {
+    font-size: 10;
+    display: flex;
+
+}
+
+.report_circle {
+    background-color:#cd2626;
+    width:80px;
+    height:80px;
+    border-radius:75px;
+    float: left;
+    vertical-align: middle;
+    margin: 0%;
+    transform: translate(20%,-20%);
+}
+
+.report_item_inner{
+    box-sizing: border-box;
+    word-break: break-all;
+    word-wrap: break-word;
+    position: relative;
+    float: left;
+    height: 100%;
+    border-bottom: 1px;
+
+}
+
+.event_box{
+    width: 1440px;
+    height: 500px;
+    background-color: none;
+    border: 1px solid #E8E8E8;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+    display: block;
+}
+
+.line_top {
+    display: inline-flex;
+    height: 10px;
+    width: 80%;
+    background-color: #EBEBEB;
+    border: none;
+    text-align: center;
+    border-radius: 10px;
+    
+}
+
+.line_top::after {
+    content: "";
+    flex-grow: 1;
+    margin: 0px 85% 0px 0px;
+    background-color: rgb(220, 0, 0);
+    height: 10px;
+    font-size: 0px;
+    line-height: 0px;
+    border-radius: 10px;
+}
+.highcharts-figure{
+    min-width: 360px;
+    max-width: 800px;
+    margin: 1rem;
+}
+</style>
+
+<div id="stock_box">
+
+    <div class="stock_name">
+        <span class="company_name">LG에너지솔루션</span>
+        <span class="company_code">373220</span>
+    </div>
+    <div class="company_box">
+        <ul class="stock_info">
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong class="stock_item">거래소</strong>
+                    <span class="value">KOSPI</span>
+                </div>
+            </li>
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong class="stock_item">CEO</strong>
+                    <span class="value">권영수</span>
+                </div>
+            </li>
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong class="stock_item">상장일</strong>
+                    <span class="value">2022년 1월 27일</span>
+                </div>
+            </li>
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong class="stock_item">시가총액</strong>
+                    <span class="value">111.74조</span>
+                </div>
+            </li>
+            <li class="stock_info_item">
+                <div class="stock_info_item_inner">
+                    <strong class="stock_item">분류</strong>
+                    <span class="value">일차전지 및 축전지 제조업</span>
+                </div>
+            </li>
+        </ul>
+        <div class="comment_box">댓글반응
+            <div id="eventchart"></div>
+        </div>
+        <script>Highcharts.chart('eventchart', {
+            chart: {
+                type: 'column',
+                width: 300,
+                height: 200
+            },
+            credits:{
+                enabled:false
+            },
+            exporting:{
+                enabled:false
+            },
+            title: {
+                text: '긍부정 비율'
+            },
+            subtitle: {
+                text: 'LG에너지솔루션'
+            },
+            xAxis: {
+                categories: [
+                    'like',
+                    'dislike',
+                ],
+                crosshair: true
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'ratio (%)'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'Tokyo',
+                data: [49.9, 71.5]
+
+            }]
+        });</script>
+        <div class="report_box">
+            <div class="report_item_inner">
+                <span class="report_opinion">애널리스트 의견</span>
+                <span class="report_date">2023년 1월 10일 기준</span>
+            </div>
+            <div class="report_circle"></div>
+        </div>
+    </div>
+</div>
+    <p></p>
+    <p></p>
+<div class="event_box">이벤트별 키워드 
+<div id="container2"></div>
+</div>
+<script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
+    // Create the chart
+    Highcharts.stockChart('container2', {
+        rangeSelector: {
+            selected: 1
+        },
+        credits:{
+            enabled:false
+        },
+        exporting:{
+            enabled:false
+        },
+        title: {
+            text: 'Jisu chart'
+        },
+
+        series: [{
+            name: 'test',
+            data: data,
+            tooltip: {
+                valueDecimals: 2
+            }
+        }]
+    });
+});</script>
+
+{% endblock %}
