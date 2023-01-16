@@ -1,20 +1,24 @@
 <body>
     {% csrf_token %}
     <h1>checkpoint</h1>
-
-    {% for class in info.all %}
-        <h1>{{class.CEO}}</h1> 
-        <h1>{{class.name}}</h1>
-        <h2>{{class.sector}}</h2>
-        {% if class.market == 0%}
-            Kospi
-        {% else %}
-            Kosdaq
-        {% endif %}
-        <br>
-    {% endfor %}
+    {{name}} , {{code}}<br>
+    {% if market == 0%}
+        Kospi
+    {% else %}
+        Kosdaq
+    {% endif %}<br>
+    {{ceo}}<br>
+    {{sector}}<br>
+    {{market_cap}}<br>
+    {{comment}}<br>
+    {{a_opinion}}<br>
     negative:
-    {{comment_value.neg}}
+    {{comment.neg}}
     <br>
-    {{a_opinion}}
+    positive:
+    {{comment.pos}}
+    {% for i in range(len(ohlcv)) %}
+        {{ohlcv[i].close_price}} {{ohlcv[i].date}}
+    {{}}
+    <br>
 </body>
