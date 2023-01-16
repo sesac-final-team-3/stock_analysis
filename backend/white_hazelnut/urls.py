@@ -7,8 +7,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path('',views.homepage),
     path("news/",include('news.urls'),name='news'),
-    path("summary/",include('summary.urls'),name='summary'),   
-    # path("summary/<int:stock_code>/",include('summary.urls'),name='searching_db'),   
+    path("summary/",include('summary.urls'),name='summary'),
 
 ]
 
