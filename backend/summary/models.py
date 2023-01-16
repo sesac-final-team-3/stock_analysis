@@ -1,5 +1,9 @@
 from django.db import models
+# import os
+# os.environ.get("DJANGO_SETTINGS_MODULE")
 
+# import django
+# django.setup()
 # Create your models here.
 
 class TbName(models.Model):

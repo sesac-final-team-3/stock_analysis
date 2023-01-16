@@ -75,8 +75,8 @@
         </h1>
     </div>
 
-    <form action="{% url 'summary' %}" method="post">
-        {% csrf_token %}
+    <form action="{% url 'summary:summary' stock_code=stock_code %}" method="POST">
+    {% csrf_token %}
         <div class="box">
             <input class="inputcode" name="stock_search" placeholder="종목코드 입력">
             <button type="submit">Search</a> </button>  
