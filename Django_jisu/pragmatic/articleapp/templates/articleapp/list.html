@@ -39,7 +39,7 @@
     padding-right: 1rem;
     padding-bottom: 2rem;
     display: flex;
-  }
+    }
 
 .companyinfo {
     display: flex;
@@ -75,6 +75,8 @@ ul {
     width: 220px;
     top: 3px;
     bottom: 3px;
+    margin-top: 2.5%;
+    margin-bottom: 2%;
 }
 
 .market{
@@ -105,52 +107,50 @@ ul {
     display: inline;
     position: relative;
     width: 100px;
-    text-align: left;
+    text-align: center;
+    margin-top: 12px;
 }
-
-
 
 .report_box {
     flex: 1;
-    display: inline-block;
-    transform: translate(10px,80px);
+    display: inline;
+    position: relative;
+    width: 100px;
+    text-align: center;
 }
 
 .report_opinion {
     font-size: 30;
     font-weight: 800;
     letter-spacing: 2px;
-    display: flex;
-    text-align: left;
-
+    display: inline;
 }
 
 .report_date {
     font-size: 10;
-    display: flex;
+    display: inline;
 
 }
 
 .report_circle {
     background-color:#cd2626;
-    width:80px;
-    height:80px;
-    border-radius:75px;
-    float: left;
-    vertical-align: middle;
-    margin: 0%;
-    transform: translate(20%,-20%);
+    width:100px;
+    height:100px;
+    border-radius:50px;
+    margin: auto;
+    transform: translate(250%,130%);
 }
 
 .report_item_inner{
     box-sizing: border-box;
     word-break: break-all;
     word-wrap: break-word;
-    position: relative;
+    position: fixed;
     float: left;
-    height: 100%;
-    border-bottom: 1px;
-
+    width: 60%;
+    height: 60%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .event_box{
@@ -166,6 +166,7 @@ ul {
     padding-right: 1rem;
     padding-bottom: 2rem;
     display: block;
+
 }
 
 .line_top {
@@ -235,14 +236,14 @@ ul {
                 </div>
             </li>
         </ul>
-        <div class="comment_box">댓글반응
-            <div id="eventchart"></div>
+        <div class="comment_box"><p style="text-align: left;"><strong>댓글반응</strong></p>
+            <div id="eventchart" style="display: inline-block;"></div>
         </div>
         <script>Highcharts.chart('eventchart', {
             chart: {
                 type: 'column',
-                width: 300,
-                height: 200
+                width: 450,
+                height: 300
             },
             legend:{
                 enabled:false
@@ -278,7 +279,8 @@ ul {
                     '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
-                useHTML: true
+                useHTML: true,
+                width:'400px'
             },
             plotOptions: {
                 column: {
@@ -287,17 +289,33 @@ ul {
                 }
             },
             series: [{
-                name: 'Tokyo',
-                data: [49.9, 71.5]
-
+                name: 'reaction',
+            colorByPoint: true,
+            data: [
+                {
+                    name: 'like',
+                    y: 61,
+                    drilldown: 'like',
+                    color:'red'
+                },
+                {
+                    name: 'dislike',
+                    y: 71,
+                    drilldown: 'dislike',
+                    color:'blue'
+                }]
             }]
-        });</script>
+        });
+        </script>
         <div class="report_box">
-            <div class="report_item_inner">
+            <div class="report_item_inner" style="position: absolute; margin-top: 160px;">
                 <span class="report_opinion">애널리스트 의견</span>
+                <br>
                 <span class="report_date">2023년 1월 10일 기준</span>
             </div>
-            <div class="report_circle"></div>
+            <div class="report_circle" style="position: absolute;">
+                <p style="margin-top: 36%; color: #E8E8E8; font-size: larger;"><strong>BUY</strong></p>
+            </div>
         </div>
     </div>
 </div>
@@ -308,6 +326,7 @@ ul {
 </div>
 <script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
     // Create the chart
+    
     Highcharts.stockChart('container2', {
         rangeSelector: {
             selected: 1
@@ -319,16 +338,26 @@ ul {
             enabled:false
         },
         title: {
-            text: 'Jisu chart'
+            text: 'LG 에너지솔루션',
+            fontFamily :"cursive"
         },
 
         series: [{
             name: 'Lg에너지솔루션',
-            data: data,
-            tooltip: {
-                valueDecimals: 2,
-            }
-        }]
+            data:  [{x:Date.parse('2020-10-20'),y:120,up:['상승','하락','상승','하락','상승','하락','상승','하락','상승','하락'],down:['종선']},{x:Date.parse('2021-10-20'),y:128.91,up:['상승','하락'],down:['성지수']},{x:Date.parse('2022-10-21'),y:127.14,up:1000,down:100}]
+        }],
+        tooltip: {
+            pointFormat: 
+                '<table style="table-layout:fixed; word-break:break-all; height:auto;">'+
+                '<tr><td style="color:black;font-size:20px;">종가: <b style="color:black">{point.y:.1f} %</b></td></tr>' +
+                '<tr><td style="color:black;font-size:15px;">긍정:<b style="color:red"> {point.up} </b></td></tr>'+
+                '<tr><td style="color:black;font-size:15px;">부정:<b style="color:blue"> {point.down} </b></td></tr></table>',
+            shared: true,
+            split: true,
+            useHTML: true
+        },
+        
+        
     });
 });</script>
 

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'newsapp',
     'articleapp',
     'searchapp',
+    'financeapp',
 ]
 
 MIDDLEWARE = [

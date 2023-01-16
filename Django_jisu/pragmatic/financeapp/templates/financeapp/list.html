@@ -1,0 +1,32 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+
+<style>
+.line_top {
+    display: inline-flex;
+    height: 10px;
+    width: 80%;
+    background-color: #EBEBEB;
+    border: none;
+    text-align: center;
+    border-radius: 10px;
+    
+}
+
+.line_top::after {
+    content: "";
+    flex-grow: 1;
+    margin: 0px 0px 0px 85% ;
+    background-color: rgb(220, 0, 0);
+    height: 10px;
+    font-size: 0px;
+    line-height: 0px;
+    border-radius: 10px;
+}
+</style>
+<div>
+<h1 style="text-align: center;">공사중 이쁘게 만들기</h1>
+</div>
+
+{% endblock %}
