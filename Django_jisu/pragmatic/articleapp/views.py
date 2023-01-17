@@ -3,12 +3,22 @@ from django.shortcuts import render
 # Create your views here.
 # from django.urls import reverse, reverse_lazy
 
-from articleapp.models import TbName, TbReport, TbSentimental
-from finanaceapp.models import TbOHLCV
+# from articleapp.forms import ArticleCreationForm
+from articleapp.models import TbName, TbReport, TbSentimental, TbOHLCV
 import json
 import time
 from django.shortcuts import redirect
 
+
+
+# class ArticleListView(ListView):
+#     model = TbName
+#     context_object_name = 'article_list'
+#     template_name = 'articleapp/list.html'
+#     paginate_by = 2
+
+#     def get_queryset(self):
+#         return TbName.objects.all().order_by('-pk')
 
 def searching_db(request):
     """
@@ -20,7 +30,7 @@ def searching_db(request):
     company_info=TbName.objects.filter(name=searching)
     searched_code = str(company_info.values()[0]['code']) #.first()
     print(f'{searched_code}를 검색합니다.')
-
+    #try,except 404 error
     return redirect('articleapp:summary_result',searched_code)
 
 def summary_result(request,searched_code):
