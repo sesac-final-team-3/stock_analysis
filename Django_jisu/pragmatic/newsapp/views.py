@@ -1,4 +1,7 @@
-from django.shortcuts import render,HttpResponse
+from django.shortcuts import render,redirect
+from articleapp.models import TbSentimental
+from newsapp.models import TbNews
+
 def news_graph(request,searched_code):
     # Tableau 진행시 
     graph_info=TbSentimental.objects.filter(code=searched_code).order_by('-news_graph')
