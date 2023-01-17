@@ -3,21 +3,11 @@ from django.shortcuts import render
 # Create your views here.
 # from django.urls import reverse, reverse_lazy
 
-# from articleapp.forms import ArticleCreationForm
-from articleapp.models import TbName, TbReport, TbSentimental, TbOHLCV
+from articleapp.models import TbName, TbReport, TbSentimental
+from finanaceapp.models import TbOHLCV
 import json
 from django.shortcuts import redirect
 
-
-
-# class ArticleListView(ListView):
-#     model = TbName
-#     context_object_name = 'article_list'
-#     template_name = 'articleapp/list.html'
-#     paginate_by = 2
-
-#     def get_queryset(self):
-#         return TbName.objects.all().order_by('-pk')
 
 def searching_db(request):
     """
