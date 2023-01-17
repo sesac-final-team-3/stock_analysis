@@ -17,8 +17,8 @@
     <br>
     positive:
     {{comment.pos}}
-    {% for i in range(len(ohlcv)) %}
-        {{ohlcv[i].close_price}} {{ohlcv[i].date}}
-    {{}}
+    {{ohlcv_list}}
+    {% comment %} {{% for ohlcv in ohlcv_list}}
+        {{ohlcv.x}} {% endcomment %}
     <br>
 </body>

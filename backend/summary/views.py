@@ -1,7 +1,8 @@
 from django.shortcuts import render,HttpResponse
 from .models import TbName,TbSentimental,TbReport
 from finance.models import TbOHLCV
-
+import datetime
+import time
 import json
 from django.urls import reverse
 from django.shortcuts import redirect
@@ -13,6 +14,7 @@ def searching_db(request):
     """
     print('###convert 접속')
     searching=request.POST.get('stock_search')
+    print('@@@',searching)
     company_info=TbName.objects.filter(name=searching)
     searched_code = str(company_info.values()[0]['code'])
     print(f'{searched_code}를 검색합니다.')
@@ -42,13 +44,14 @@ def summary_result(request,searched_code):
     ceo=TbName.objects.get(code=searched_code).CEO
     # market
     market=TbName.objects.get(code=searched_code).market
+    # listed_date
+    listed_date=TbName.objects.get(code=searched_code).listed_date
     # sector
     sector=TbName.objects.get(code=searched_code).sector
     # market_cap
     market_cap=TbName.objects.get(code=searched_code).market_cap
     market_cap=format(market_cap,',')
     
-    # tbnews, tbohlcv, tbprofit, tbreport, tbsentimental, tbtradinginfo, updated_date
     
     # comment value # 댓글 반응
     comment_info=TbSentimental.objects.filter(code=searched_code).order_by('-date')[0].comment
@@ -63,10 +66,31 @@ def summary_result(request,searched_code):
     # analyst opinion
     a_opinion= TbReport.objects.filter(code=searched_code).order_by('-date')[0].comment
     
-    # OHLCV data 진행예정
-    ohlcv_info = TbOHLCV.objects.filter(code=searched_code)
+    # OHLCV data 진행예정 , ['date':date,(parsing한 시간으로 ) 'close_price':13234, up: ['긍정,'부정'],down:['부정']]
+    ohlcv_info = TbOHLCV.objects.filter(code=searched_code).order_by('date')
     ohlcv = ohlcv_info.values()
-    data={'code':searched_code,'name':name,"market":market,"ceo":ceo,"sector":sector,"market_cap":market_cap,'comment':comment_value,'a_opinion':a_opinion,'ohlcv':ohlcv}
+    ohlcv_list=[]
+    
+    for ohlcv_result in ohlcv:
+        
+        temp={}
+        temp['x']=time.mktime(ohlcv_result['date'].timetuple())*1000
+        temp['y']=int(ohlcv_result['close_price'])
+        temp['compare_price']=str(ohlcv_result['compare_price'])
+        
+        if ohlcv_result['news_keyword']==None:
+            temp['word']={'긍정_단어':'없음','부정_단어':'없음'}
+        else:
+            keyword_json=json.loads(ohlcv_result['news_keyword'].replace("'", "\""))
+            temp['word']=keyword_json
+
+        # {'x': 1668470400.0, 'y': 596000, 'compare_price': '-1.32', 'word': {'부정_단어': '개인,증시,상승,미국,매수,발언,전날,의장,매도,성장', '부정_빈도': '0.31,0.31,0.25,0.25,0.19,0.19,0.19,0.19,0.19,0.19', '긍정_단어': '기관,외국인,상위,전자,매수,투자,관련,주의,올해,기간', '긍정_빈도': '0.6,0.4,0.4,0.4,0.4,0.2,0.2,0.2,0.2,0.2'}},
+        ohlcv_list.append(temp)
+        print(ohlcv_list)
+        
+        # "{'부정_단어': '매수,상승,주식,전자,구매,종목,기준,환율,신청,전체', '부정_빈도': '0.31,0.25,0.25,0.25,0.25,0.25,0.25,0.19,0.19,0.19', '긍정_단어': '상승,개인,생산,환율,기관,종목,협력,인도네시아,공급,배터리', '긍정_빈도': '0.25,0.25,0.19,0.19,0.19,0.19,0.12,0.12,0.12,0.12'}"
+    
+    data={'code':searched_code,'name':name,"market":market,"ceo":ceo,"listed_date":listed_date,"sector":sector,"market_cap":market_cap,'comment':comment_value,'a_opinion':a_opinion,'ohlcv_list':ohlcv_list}
     return render(request,'test.html',data)
 
 #  TbOHLCV.objects.filter(code="373220").values()[0]
