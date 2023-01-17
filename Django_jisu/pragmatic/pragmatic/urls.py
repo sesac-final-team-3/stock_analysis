@@ -14,16 +14,14 @@ Including another URLconf
 """
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.urls import path, include
-
 
 import searchapp.views
 
 urlpatterns = [
     path('',searchapp.views.main, name='main'),
-    path('admin/', admin.site.urls),
     path('articles/', include('articleapp.urls'),name='articleapp'),
     path('news/', include('newsapp.urls'),name='news'),
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,17 +1,20 @@
 from django.contrib.auth.models import User
 from django.db import models
+from articleapp.models import TbName
 
 # Create your models here.
 
 
-class News(models.Model):
-    # writer = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='project', null=True)
+class TbNews(models.Model):
+    id = models.AutoField(db_column='ID', primary_key=True)
+    date = models.DateTimeField(db_column='date', blank=True, null=True)
+    code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
+    press = models.CharField(db_column='press', max_length=16, blank=True, null=True)
+    url = models.TextField(db_column='url', blank=True, null=True)
+    title = models.TextField(db_column='title', blank=True, null=True)
+    content = models.TextField(db_column='content', blank=True, null=True)
+    photourl = models.TextField(db_column='photourl', blank=True, null=True)
+    updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)
 
-    image = models.ImageField(upload_to='news/', null=False)
-    title = models.CharField(max_length=20, null=False)
-    description = models.CharField(max_length=200, null=True)
-
-    created_at = models.DateTimeField(auto_now=True)
-
-    def __str__(self):
-        return f'{self.pk} : {self.title}'
+    class Meta:
+        db_table = 'tb_news'

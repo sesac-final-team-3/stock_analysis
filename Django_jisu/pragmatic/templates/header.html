@@ -6,13 +6,13 @@
             <p>뷰포인트에서 제공하는 뉴스 이슈 입니다. 각 항목을 클릭하면 긍부정 점수와 이벤트별 관련 뉴스를 확인 할 수 있습니다.</p>
         </div>
         <div class="viewpoint_header_navbar" style="display: flex; flex-flow: row nowrap; justify-content: space-around;">
-            <a href="{% url 'articleapp:list' %}" class="viewpoint_header_nav" style="flex: 1">
+            <a href="{% url 'articleapp:searching_db' %}" class="viewpoint_header_nav" style="flex: 1">
                 <span>기업정보</span>
             </a>
-            <a href="{% url 'news:list' %}" class="viewpoint_header_nav" style="flex: 1">
+            <a href="{% url 'articleapp:searching_db' %}" class="viewpoint_header_nav" style="flex: 1">
                 <span>뉴스이슈</span>
             </a>
-            <a href="{% url 'news:list' %}" class="viewpoint_header_nav" style="flex: 1">
+            <a href="{% url 'articleapp:searching_db' %}" class="viewpoint_header_nav" style="flex: 1">
                 <span>재무</span>
             </a>
         </div>

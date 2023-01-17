@@ -78,11 +78,13 @@
             </h1>
         </div>
 
-        <div class="box">
-            <input class="inputcode" type="search" placeholder="종목코드 입력">
-            <!-- <button type="submit" style="background-color: rgb(220, 0, 0); border: none; border-radius: 5px; color: rgb(255, 255, 255);" href="{% url 'articleapp:list' %}"> Search </button> -->
-            <button type="submit" class="button" onclick=location.href="{% url 'articleapp:list' %}"> Search </button>
-        </div>
+        <form action="{% url 'articleapp:searching_db' %}" method='POST'>
+            {% csrf_token %}
+            <div class="box">
+                <input class="inputcode" name="stock_search" placeholder="종목코드 입력">
+                <button type="submit"> Search </button>
+            </div>
+        </form>
     </div>
     <footer>
         <div style="margin-top:-10px; position: fixed; bottom:0; width:100%;">
