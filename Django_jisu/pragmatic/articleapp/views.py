@@ -6,6 +6,7 @@ from django.shortcuts import render
 # from articleapp.forms import ArticleCreationForm
 from articleapp.models import TbName, TbReport, TbSentimental, TbOHLCV
 import json
+import time
 from django.shortcuts import redirect
 
 
@@ -75,6 +76,8 @@ def summary_result(request,searched_code):
     print('### comment_info 결과값:',comment_info)
     # comment value string 인 것들 dict 화
     comment_value=json.loads(comment_info.replace("'", "\""))
+    c_neg=comment_value['neg']
+    c_pos=comment_value['pos']
     # comment_value.neg : 부정, comment_value.pos : 긍정 
     # print(comment_value)
 
@@ -83,8 +86,27 @@ def summary_result(request,searched_code):
     a_opinion= TbReport.objects.filter(code=searched_code).order_by('-date')[0].comment
 
 
-    # OHLCV data 진행예정
-    ohlcv_info = TbOHLCV.objects.filter(code=searched_code)
+   # OHLCV data 진행예정 , ['date':date,(parsing한 시간으로 ) 'close_price':13234, up: ['긍정,'부정'],down:['부정']]
+    ohlcv_info = TbOHLCV.objects.filter(code=searched_code).order_by('date')
     ohlcv = ohlcv_info.values()
-    data={'code':searched_code,'name':name,"market":market,"CEO":ceo,"sector":sector,"market_cap":market_cap,'comment':comment_value,'a_opinion':a_opinion,'ohlcv':ohlcv, 'listed_date':listed_date}
+    ohlcv_list=[]
+    
+    for ohlcv_result in ohlcv:
+        
+        temp={}
+        temp['x']=time.mktime(ohlcv_result['date'].timetuple())*1000
+        temp['y']=int(ohlcv_result['close_price'])
+        temp['compare_price']=str(ohlcv_result['compare_price'])
+        
+        if ohlcv_result['news_keyword']==None:
+            temp['word']={'긍정_단어':'없음','부정_단어':'없음'}
+        else:
+            keyword_json=json.loads(ohlcv_result['news_keyword'].replace("'", "\""))
+            temp['word']=keyword_json
+
+        # {'x': 1668470400.0, 'y': 596000, 'compare_price': '-1.32', 'word': {'부정_단어': '개인,증시,상승,미국,매수,발언,전날,의장,매도,성장', '부정_빈도': '0.31,0.31,0.25,0.25,0.19,0.19,0.19,0.19,0.19,0.19', '긍정_단어': '기관,외국인,상위,전자,매수,투자,관련,주의,올해,기간', '긍정_빈도': '0.6,0.4,0.4,0.4,0.4,0.2,0.2,0.2,0.2,0.2'}},
+        ohlcv_list.append(temp)
+        print(ohlcv_list)
+    # ohlcv_list = str(ohlcv_list).replace("'", '')
+    data={'code':searched_code,'name':name,"market":market,"CEO":ceo,"sector":sector,"market_cap":market_cap,'c_pos':c_pos,'c_neg':c_neg,'a_opinion':a_opinion,'ohlcv_list':ohlcv_list, 'listed_date':listed_date}
     return render(request,'articleapp/list.html',data)
