@@ -1,133 +1,9 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
 
 <style>
-
-
-  .sentiment {
-    width: 1080px;
-    height: 300px;
-  }
-
-  .sentiment hr {
-  width : 1000px;
-  height : 0.025rem;
-  background-color : #dd2626;
-  }
-
-  table {
-    border-collapse: separate;
-    text-indent: initial;
-    border-spacing: 2px;
-  }
-
-  .container {
-    overflow: scroll;
-    width: 1080px;
-    height: 100%;
-    margin: 0 auto;
-    text-align: left;
-    table-layout: fixed;
-  }
-
-
-  .container col{
-    display: block;
-    justify-content: left;
-    align-items: left;
-    border-radius: 10px;
-  }
-
-  .cluster_body {
-    padding: 13px;
-  }  
-
-  ul {
-    list-style-type : none;
-  }
-
-  .cluster_list {
-    padding-left: 60px;
-    padding-right: 60px;
-  }
-
-  .cluster_item {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-    letter-spacing: -1px;
-    font-size: 15px;
-    line-height: 16px;
-  }
-
-  .cluster_thumb {
-    display: table-cell;
-    width: 149px;
-    height: 90px;
-  }
-
-  .cluster_thumb a {
-    vertical-align: top;
-    width: 132px;
-    height: 90px;
-  }
-
-  .cluster_thumb_link {
-    display: block;
-    position: relative;
-}
-
-  .cluster_text_headline {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    display: block;
-    padding-bottom: 6px;
-    padding-right: 4px;
-    font-weight: bold;
-    letter-spacing: -1px;
-  }
-
-  a:-webkit-any-link {
-    cursor: pointer;
-  }
-
-  .cluster_text_lede {
-    display: -webkit-box;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    padding-bottom: 6px;
-    font-size: 13px;
-    line-height: 20px;
-    color: #666;
-  }
-
-  .cluster_text {
-    display: table-cell;
-    vertical-align: middle;
-  }
-
-  img {
-    width: 132px;
-    aspect-ratio: auto 132 / 90;
-    height: 90px;
-  }
-  .content_box{
-    display: block;
-    width : 1440px;
-    height: auto;
-    background-color: none;
-    border: 1px solid #E8E8E8;
-    border-radius: 10px;
-    margin-left: auto;
-    margin-right: auto;
-    padding-top: 3rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 2rem;
-  }
-  .line_top {
+.line_top {
     display: inline-flex;
     height: 10px;
     width: 80%;
@@ -138,30 +14,30 @@
     
 }
 
-  .line_top::after {
-      content: "";
-      flex-grow: 1;
-      margin: 0px 42% 0px 43%;
-      background-color: rgb(220, 0, 0);
-      height: 10px;
-      font-size: 0px;
-      line-height: 0px;
-      border-radius: 10px;
-  }
-
-
+.line_top::after {
+    content: "";
+    flex-grow: 1;
+    margin: 0px 0px 0px 85% ;
+    background-color: rgb(220, 0, 0);
+    height: 10px;
+    font-size: 0px;
+    line-height: 0px;
+    border-radius: 10px;
+}
 </style>
-<div class="content_box">
-  <div>긍부정점수</div>
-  <div id="PNchart"></div>
+
+<div>
+    <input type="button" name="외국인">  
+</div>
+<div id="container2"></div>
 </div>
 <script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
     // Create the chart
     
-    Highcharts.stockChart('PNchart', {
+    Highcharts.stockChart('container2', {
         chart: {
             style: {
-                fontFamily: 'NanumSquareR'
+                fontFamily: 'NanumSquareR',
             }},
         rangeSelector: {
             selected: 1
@@ -220,31 +96,6 @@
         width:'400px'
         },
   });
-});</script>
-    <hr/>
-  <table cellpadding="0" cellspacing="0" class="container"></table>
-  <div class="col">관련 뉴스</div>
-  <tr>
-    <td>
-      <!-- name 수정 필요 -->
-      {% for news in news_table %}
-      <div class="cluster_body" style ="display: inline; text-align: lieft; align-items: center;">
-        <ul class="cluster_list">
-          <li class="cluster_item">
-            <div class="cluster_thumb">
-              <a>
-                <img src={{news.photourl}} class="cluster_thumb_link nclicks(cls_nav.clsart)"></a>
-            </div>
-            <div class="cluster_text">
-              <a class="cluster_text_headline"  href={{news.url}}>{{news.title}}{{ news.title | truncatechars:100 }}</a>
-              <div class="cluster_text_lede">
-                {{ news.content | truncatechars:300 }}
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-    <div>
-      {% include 'snippets/pagination.html' with page_obj=page_obj %}
-    </div>
+});</script>    
 
 {% endblock %}

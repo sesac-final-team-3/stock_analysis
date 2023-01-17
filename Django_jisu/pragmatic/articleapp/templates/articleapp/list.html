@@ -244,9 +244,9 @@ ul {
             </li>
         </ul>
         <div class="comment_box">
-            <div id="eventchart"></div>
+            <div id="commentchart"></div>
         </div>
-        <script>Highcharts.chart('eventchart', {
+        <script>Highcharts.chart('commentchart', {
             chart: {
                 type: 'column',
                 width: 450,
@@ -264,9 +264,6 @@ ul {
             title: {
                 text: '댓글 반응'
             },
-            // subtitle: {
-            //     text: 'LG에너지솔루션'
-            // },
             xAxis: {
                 categories: [
                     '긍정',
@@ -281,10 +278,8 @@ ul {
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                footerFormat: '</table>',
+                pointFormat: '<table><tr><td style="color:{point.color};padding:0">{point.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} %</b></td></tr></table>',
                 shared: true,
                 useHTML: true,
                 width:'400px'
@@ -296,19 +291,16 @@ ul {
                 }
             },
             series: [{
-                name: 'reaction',
                 colorByPoint: true,
                 data: [
                     {
-                        name:'like',
+                        name:'긍정',
                         y: {{c_pos}},
-                        drilldown: 'like',
                         color: '#cd2626'
                     },
                     {
-                        name:'dislike',
+                        name:'부정',
                         y: {{c_neg}},
-                        drilldown: 'dislike',
                         color:'#0018a0'
                     }
                     ]
@@ -330,13 +322,13 @@ ul {
     <p></p>
     <p></p>
 <div class="event_box">이벤트별 키워드 
-<div id="container2"></div>
+<div id="eventchart"></div>
 </div>
 
 
-<script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
+<script> 
     // Create the chart
-    Highcharts.stockChart('container2', {
+    Highcharts.stockChart('eventchart', {
         rangeSelector: {
             selected: 1
         },
@@ -380,6 +372,6 @@ ul {
             useHTML: true,
         },  
     });
-});</script>
+</script>
 
 {% endblock %}
