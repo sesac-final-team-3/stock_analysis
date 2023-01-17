@@ -301,13 +301,13 @@ ul {
                 data: [
                     {
                         name:'like',
-                        y: 61,
+                        y: {{c_pos}},
                         drilldown: 'like',
                         color: '#cd2626'
                     },
                     {
                         name:'dislike',
-                        y: 71,
+                        y: {{c_neg}},
                         drilldown: 'dislike',
                         color:'#0018a0'
                     }
@@ -332,6 +332,8 @@ ul {
 <div class="event_box">이벤트별 키워드 
 <div id="container2"></div>
 </div>
+
+
 <script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
     // Create the chart
     Highcharts.stockChart('container2', {
@@ -351,24 +353,32 @@ ul {
             }
         },
         title: {
-            text: 'LG 에너지솔루션',
+            text: '{{name}}',
             style: {fontSize: '25px'}
         },
 
         series: [{
-            name: 'LG에너지솔루션',
-            data:  [{x:Date.parse('2020-10-20'),y:120,up:['상승','하락','상승','하락','상승','하락','상승','하락','상승','하락'],down:['종선']},{x:Date.parse('2021-10-20'),y:128.91,up:['상승','하락'],down:['성지수']},{x:Date.parse('2022-10-21'),y:127.14,up:1000,down:100}]
+            name: '{{name}}',
+            data: {{ohlcv_list|safe}},
         }],
+        xAxis:{
+            labels:{
+                enabled:false
+            }
+        },
         tooltip: {
+            dateTimeLabelFormats: {
+                day: '%b %e, %Y'
+            },
             pointFormat: 
                 '<table style="table-layout:fixed; word-break:break-all; height:auto;">'+
-                '<tr><td style="color:black;font-size:15px;font-family:GmarketSansMedium;">종가: <b style="color:black">{point.y:.1f} %</b></td></tr>' +
-                '<tr><td style="color:black;font-size:15px;font-family:GmarketSansMedium;">긍정:<b style="color:red"> {point.up} </b></td></tr>'+
-                '<tr><td style="color:black;font-size:15px;font-family:GmarketSansMedium;">부정:<b style="color:blue"> {point.down} </b></td></tr></table>',
+                '<tr><td style="color:black;font-size:15px; font-family:cursive">종가: <b style="color:black;font-family:sans-serif">{point.y} 원</b></td></tr>' +
+                '<tr><td style="color:black;font-size:15px;">전일비:<b style="color:red;font-family:cursive""> {point.compare_price} </b></td></tr>'+
+                '<tr><td style="color:black;font-size:15px;">긍정:<b style="color:red;font-family:cursive""> {point.word.긍정_단어} </b></td></tr>'+
+                '<tr><td style="color:black;font-size:15px;">부정:<b style="color:blue"> {point.word.부정_단어} </b></td></tr></table>',
             shared: true,
-            split: true,
-            useHTML: true
-        },
+            useHTML: true,
+        },  
     });
 });</script>
 

@@ -9,7 +9,7 @@ def news_graph(request,searched_code):
 
     news_table=TbNews.objects.filter(code=searched_code).order_by('date')[:3]
     # print('!!!!',news_table.values())
-    # print(news_table.values())
+    print('@@@@',news_table[0].photourl)
     data={'code':searched_code,'news_table':news_table}
-    paginate_by=3
+
     return render(request,'newsapp/list.html', data)

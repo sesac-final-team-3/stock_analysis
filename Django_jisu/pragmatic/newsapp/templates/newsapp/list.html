@@ -159,22 +159,22 @@
   <tr>
     <td>
       <!-- name 수정 필요 -->
-      {% for news in news_table%}
-        
-      <div class="cluster_body">
+      {% for news in news_table %}
+      <div class="cluster_body" style ="display: inline; text-align: lieft; align-items: center;">
         <ul class="cluster_list">
           <li class="cluster_item">
             <div class="cluster_thumb">
-              <a><img src={{news.photourl}} class="cluster_thumb_link nclicks(cls_nav.clsart)"></a>
+              <a>
+                <img src={{news.photourl}} class="cluster_thumb_link nclicks(cls_nav.clsart)"></a>
             </div>
             <div class="cluster_text">
-              <a class="cluster_text_headline">{{news.title}}</a>
+              <a class="cluster_text_headline"  href={{news.url}}>{{news.title}}{{ news.title | truncatechars:100 }}</a>
               <div class="cluster_text_lede">
-                {{ news.content }}
+                {{ news.content | truncatechars:200 }}
               </div>
-              {% endfor %}
             </div>
           </div>
+          {% endfor %}
     <div>
       {% include 'snippets/pagination.html' with page_obj=page_obj %}
     </div>
