@@ -1,7 +1,6 @@
 from django.shortcuts import render,HttpResponse
 from .models import TbName,TbSentimental,TbReport
 from finance.models import TbOHLCV
-import datetime
 import time
 import json
 from django.urls import reverse

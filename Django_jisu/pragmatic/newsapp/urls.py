@@ -2,8 +2,9 @@ from django.urls import path
 from . import views
 
 
-app_name = 'news'
+app_name = 'newsapp'
 
 urlpatterns = [
-    path('',views.news_graph,name="news_main"),
+    path('<int:searched_code>/',views.news_graph,name='news_graph'),
+    # path('search/',views.news_graph,name="news_main"),
 ]

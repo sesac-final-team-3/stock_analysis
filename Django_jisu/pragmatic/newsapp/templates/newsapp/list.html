@@ -159,55 +159,24 @@
   <tr>
     <td>
       <!-- name 수정 필요 -->
+      {% for news in news_table%}
+        
       <div class="cluster_body">
         <ul class="cluster_list">
           <li class="cluster_item">
             <div class="cluster_thumb">
-              <a><img src="https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F001%2F2023%2F01%2F06%2F13685034.jpg&type=ff264_180&expire=2&refresh=true" class="cluster_thumb_link nclicks(cls_nav.clsart)"></a>
+              <a><img src={{news.photourl}} class="cluster_thumb_link nclicks(cls_nav.clsart)"></a>
             </div>
             <div class="cluster_text">
-              <a class="cluster_text_headline">[특징주] LG에너지솔루션, 실적 실망에 이틀째 약세</a>
+              <a class="cluster_text_headline">{{news.title}}</a>
               <div class="cluster_text_lede">
-              "6일 증시에서 LG에너지솔루션이 기대를 밑도는 실적을 거뒀다는 분석이 나오면서 이틀째 하락 중이다. 오전 9시 6분 현재 LG에너지솔루션은 전 거래일보다 1.04%"
+                {{ news.content }}
               </div>
+              {% endfor %}
             </div>
-          </li>
-          <hr>
-          <li class="cluster_item">
-            <div class="cluster_thumb">
-              <a><img src="https://biz.chosun.com/resizer/LdeVy8SqX8wvF_abURMH1HS_yxc=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/F7SCLP2IUPXP5EUI4DLKXGBG4Q.jpg"></a>
-              </a>
-            </div>
-            <div class="cluster_text">
-              <a class="cluster_text_headline">신한투자증권 “LG에너지솔루션, 4분기 실적 부진...목표가 하향 조정”</a>
-              <div class="cluster_text_lede">
-                "신한투자증권은 6일 LG에너지솔루션에 대해 4분기 실적은 인센티브 지급에 따른 인건비 부담과 재고 조정 효과로 일회성 이슈로 실적 부진을 전망했다. 투자의견은 ‘매수’를 유지, 목표가는 기존 69만원에서 62만원으로 하향 조정했다."
-              </div>
-            </div>
-          </li>
-          <hr>
-          <li class="cluster_item">
-            <div class="cluster_thumb">
-              <a><img src="https://wimg.mk.co.kr/news/cms/202301/05/news-p.v1.20230105.162c8fd3106a4a7687fce972cde70dd2_P1.jpg"></a>
-              </a>
-            </div>
-            <div class="cluster_text">
-              <a class="cluster_text_headline">LG엔솔-도요타 배터리 협력, 합작사 설립 대신 공급으로</a>
-              <div class="cluster_text_lede">
-                "美생산 파우치형 배터리 이르면 1분기 계약 전망 도요타, 공급처 다변화로 배터리 물량 빠르게 확보 장기적으론 내재화 주력 LG에너지솔루션과 도요타자동차의 배"
-              </div>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </td>
-  </tr>
-  <script src="{% static 'js/magicgrid.js' %}"></script>
-</div>
-  {% include 'snippets/pagination.html' with page_obj=page_obj %}
-
-
-</div>
-
+          </div>
+    <div>
+      {% include 'snippets/pagination.html' with page_obj=page_obj %}
+    </div>
 
 {% endblock %}
