@@ -1,5 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 from articleapp.models import TbName
+
+# Create your models here.
 
 
 class TbNews(models.Model):
