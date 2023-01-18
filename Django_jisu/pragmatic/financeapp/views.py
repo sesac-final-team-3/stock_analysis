@@ -9,4 +9,4 @@ def finance_data(request,searched_code):
     print('@@@@@@@',searched_code)
     data={'code':searched_code}
 
-    return render(request,'financeapp/test.html', data)
+    return render(request,'financeapp/list.html', data)

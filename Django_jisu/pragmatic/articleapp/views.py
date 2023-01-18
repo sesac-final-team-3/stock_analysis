@@ -4,7 +4,7 @@ from django.shortcuts import render
 # from django.urls import reverse, reverse_lazy
 
 from articleapp.models import TbName, TbReport, TbSentimental
-from finanaceapp.models import TbOHLCV
+from financeapp.models import TbOHLCV
 import json
 import time
 from django.shortcuts import redirect
