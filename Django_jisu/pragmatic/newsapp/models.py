@@ -1,6 +1,6 @@
 from django.db import models
 from articleapp.models import TbName
-
+from django.conf import settings
 
 class TbNews(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
@@ -12,6 +12,6 @@ class TbNews(models.Model):
     content = models.TextField(db_column='content', blank=True, null=True)
     photourl = models.TextField(db_column='photourl', blank=True, null=True)
     updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)
-
     class Meta:
         db_table = 'tb_news'
+

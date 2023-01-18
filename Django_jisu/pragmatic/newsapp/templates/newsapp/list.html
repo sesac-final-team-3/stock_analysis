@@ -157,9 +157,7 @@
   <div class="col">긍부정점수</div>
   <div id="container2"></div>
 </div>
-<script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
-    // Create the chart
-    
+<script> 
     Highcharts.stockChart('container2', {
         chart: {
             style: {
@@ -228,7 +226,7 @@
         width:'400px'
         },
   });
-});</script>
+</script>
 
 <p></p>
 <p></p>
@@ -238,7 +236,7 @@
     <div class="col">관련 뉴스</div>
     <tr>
       <td>
-        {% for news in news_table %}
+        {% for news in page_obj %}
         <div style ="display: inline; text-align: left; align-items: center;">
           <ul class="cluster_list">
             <li class="cluster_item">
@@ -254,12 +252,32 @@
               <div class="cluster_text">
                 <a class="cluster_text_headline" href={{news.url}}>{{ news.title | truncatechars:100 }}</a>
                 <a class="cluster_text_lede" href={{news.url}}>
-                  {{ news.content | truncatechars:200 }}
+                  {{ news.content | truncatechars:300 }}
                 </a>
               </div>
             </div>
           <hr>
         {% endfor %}
+
+        <div style="text-align: center;">
+          <ul style="display: inline-flex;list-style: none;">
+          {% if page_obj.has_previous%}
+            <li style="margin: 3px;"><a style="text-decoration: none;color: black;" href="?page={{ page_obj.previous_page_number }}">이전</a></li>
+          {% endif%}
+
+          {% for page in paginator.page_range %}
+          {% if page == page_obj.number%}
+            <li style="margin: 3px;"><a style="text-decoration: none;color: red;" href="?page={{page}}">{{page}}</a></li>
+          {% else %}
+            <li style="margin: 3px;"><a style="text-decoration: none;color: black;" href="?page={{page}}">{{page}}</a></li>
+          {% endif%}
+          {% endfor %}
+
+          {% if page_obj.has_next%}
+          <li style="margin: 3px;"><a style="text-decoration: none;color: black;" href="?page={{ page_obj.next_page_number }}">다음</a></li>
+          {% endif%}
+          </ul>
+        </div>
       </div>
     </div>
 
