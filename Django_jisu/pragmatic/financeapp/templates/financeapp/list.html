@@ -21,13 +21,13 @@
     background-color: rgb(220, 0, 0); /* Green */
     border: none;
     color: white;
-    width: 86px;
-    height: 44px;
-    border-radius: 5px;
+    width: 55px;
+    height: 26px;
+    border-radius: 8px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 16px;
+    font-size: 13px;
     margin: 4px 2px;
     cursor: pointer;
 }
@@ -53,30 +53,47 @@
     line-height: 0px;
     border-radius: 10px;
 }
+.center_button {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 </style>
 
 <div class="content_box">
-    <div>거래량
-    <button style="float: right;" class="button" onclick="changedb1(0);">외국인</button>
-    <button style="float: right;" class="button" onclick="changedb1(1);">기관</button>
+    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">거래량
+    <div class="center_button">
+    <button class="button" onclick="changedb1(0);">개인</button>
+    <button class="button" onclick="changedb1(1);">기관</button>
+    <button class="button" onclick="changedb1(1);">외국인</button>
     </div>
-    <div id="financechart1"></div>
+    </div>
+    <div id="financechart1" style="margin-top: 20px;"></div>
 </div>
 
 <div class="content_box">
-    <div>공매도
-    <button class="button" onclick="changedb2(0);">외국인</button>
+    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">공매도
+    <div class="center_button">
+    <button class="button" onclick="changedb2(0);">개인</button>
     <button class="button" onclick="changedb2(1);">기관</button>
+    <button class="button" onclick="changedb2(2);">외국인</button>
     </div>
-    <div id="financechart2"></div>
+    </div>
+    <div id="financechart2" style="margin-top: 20px;"></div>
 </div>
 
 <div class="content_box">
-    <div>보유량
-    <button class="button" onclick="changedb3(0);">외국인</button>
+    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">보유량
+    <div class="center_button">
+    <button class="button" onclick="changedb3(0);">개인</button>
     <button class="button" onclick="changedb3(1);">기관</button>
+    <button class="button" onclick="changedb3(2);">외국인</button>
     </div>
-    <div id="financechart3"></div>
+    </div>
+    <div id="financechart3" style="margin-top: 20px;"></div>
 </div>
 
 
@@ -94,9 +111,6 @@ var chart1 =Highcharts.stockChart('financechart1', {
         },
         exporting:{
             enabled:false
-        },
-        title: {
-            text: 'LG 에너지솔루션'
         },
         xAxis: {
          labels: {
@@ -148,6 +162,9 @@ function changedb1(idx){
     if (idx==0) {
         chart1.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
     }
+    if (idx==1) {
+        chart1.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
+    }
     else {
         chart1.series[0].setData([[1512313200000.0, 20], [1512399600000.0, 40], [1512486000000.0, 35], [1512572400000.0, 50]])}
     }
@@ -165,9 +182,6 @@ var chart2 =Highcharts.stockChart('financechart2', {
     },
     exporting:{
         enabled:false
-    },
-    title: {
-        text: 'LG 에너지솔루션'
     },
     xAxis: {
         labels: {
@@ -219,6 +233,9 @@ function changedb2(idx){
     if (idx==0) {
         chart2.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
     }
+    else if (idx==1) {
+        chart2.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
+    }
     else {
         chart2.series[0].setData([[1512313200000.0, 20], [1512399600000.0, 40], [1512486000000.0, 35], [1512572400000.0, 50]])}
     }
@@ -236,9 +253,6 @@ var chart3 =Highcharts.stockChart('financechart3', {
     },
     exporting:{
         enabled:false
-    },
-    title: {
-        text: 'LG 에너지솔루션'
     },
     xAxis: {
         labels: {
@@ -288,6 +302,9 @@ chart3.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486
 chart3.series[1].setData([[1512313200000.0, 0.5], [1512399600000.0, -0.5], [1512486000000.0, -0.5], [1512572400000.0, -10]])
 function changedb3(idx){
     if (idx==0) {
+        chart3.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
+    }
+    if (idx==1) {
         chart3.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
     }
     else {
