@@ -298,9 +298,8 @@ ul {
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                headerFormat: '<span style="font-size:15px"><b>{point.key}</b></span><table>',
+                pointFormat: '<tr><td style="padding:0; color:{point.color};"><b>{point.y:.1f} %</b></td></tr>',
                 footerFormat: '</table>',
                 shared: true,
                 useHTML: true,
@@ -317,14 +316,14 @@ ul {
                 colorByPoint: true,
                 data: [
                     {
-                        name:'like',
-                        y: {{c_pos}},
+                        name:'긍정',
+                        y: {{c_pos}}*100,
                         drilldown: 'like',
                         color: '#cd2626'
                     },
                     {
-                        name:'dislike',
-                        y: {{c_neg}},
+                        name:'부정',
+                        y: {{c_neg}}*100,
                         drilldown: 'dislike',
                         color:'#0018a0'
                     }
