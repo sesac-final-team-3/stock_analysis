@@ -171,6 +171,22 @@ ul {
     display: block;
 }
 
+.col{
+    display: inline;
+    align-items: left;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.opinion_col{
+    display: inline;
+    align-items: left;
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 0px;
+    margin-right: 30px;
+}
+
 .line_top {
     display: inline-flex;
     height: 10px;
@@ -262,11 +278,12 @@ ul {
                 enabled:false
             },
             title: {
-                text: '댓글 반응'
+                text: '댓글 반응',
+                style:{
+                    fontFamily:'NanumSquareB',
+                    fontSize:'20px'
+                }
             },
-            // subtitle: {
-            //     text: 'LG에너지솔루션'
-            // },
             xAxis: {
                 categories: [
                     '긍정',
@@ -317,19 +334,21 @@ ul {
         });</script>
         <div class="report_box">
             <div class="report_item_inner" style="position: absolute; margin-top: 160px; margin-left: 10%;">
-                <span class="report_opinion">애널리스트 의견</span>
+                <span class="report_opinion"></span>
+                <div class="opinion_col">애널리스트 의견</div>
                 <br>
                 <span class="report_date">2023년 1월 10일 기준</span>
             </div>
             <div class="report_circle" style="position: absolute; margin-left: 5%;">
-                <p style="margin-top: 36%; color:#E8E8E8; font-size: larger;"><strong>BUY</strong></p>
+                <p style="margin-top: 36%; color:#E8E8E8; font-size: larger;"><strong>{{ a_opinion }}</strong></p>
             </div>
         </div>
     </div>
 </div>
     <p></p>
     <p></p>
-<div class="event_box">이벤트별 키워드 
+<div class="event_box">
+    <div class="col">이벤트별 키워드</div> 
 <div id="container2"></div>
 </div>
 
@@ -372,10 +391,10 @@ ul {
             },
             pointFormat: 
                 '<table style="table-layout:fixed; word-break:break-all; height:auto;">'+
-                '<tr><td style="color:black;font-size:15px; font-family:cursive">종가: <b style="color:black;font-family:sans-serif">{point.y} 원</b></td></tr>' +
-                '<tr><td style="color:black;font-size:15px;">전일비:<b style="color:red;font-family:cursive""> {point.compare_price} </b></td></tr>'+
-                '<tr><td style="color:black;font-size:15px;">긍정:<b style="color:red;font-family:cursive""> {point.word.긍정_단어} </b></td></tr>'+
-                '<tr><td style="color:black;font-size:15px;">부정:<b style="color:blue"> {point.word.부정_단어} </b></td></tr></table>',
+                '<tr><td style="color:black;font-size:15px; font-family:GmarketSansMedium; font-weight: bold">종가: <b style="color:black; font-family:GmarketSansMedium; font-weight: normal">{point.y}원</b></td></tr>' +
+                '<tr><td style="color:black;font-size:15px; font-family:GmarketSansMedium; font-weight: bold">전일비:<b style="color:black; font-family:GmarketSansMedium; font-weight: normal"> {point.compare_price}%</b></td></tr>'+
+                '<tr><td style="color:black;font-size:15px; font-family:GmarketSansMedium; font-weight: bold">긍정:<b style="color:red; font-family:GmarketSansMedium; font-weight: normal"> {point.word.긍정_단어} </b></td></tr>'+
+                '<tr><td style="color:black;font-size:15px; font-family:GmarketSansMedium; font-weight: bold">부정:<b style="color:blue; font-family:GmarketSansMedium; font-weight: normal"> {point.word.부정_단어} </b></td></tr></table>',
             shared: true,
             useHTML: true,
         },  

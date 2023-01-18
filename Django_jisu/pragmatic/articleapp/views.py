@@ -73,7 +73,7 @@ def summary_result(request,searched_code):
 
 
     # analyst opinion
-    a_opinion= TbReport.objects.filter(code=searched_code).order_by('-date')[0].comment
+    a_opinion= TbReport.objects.filter(code=searched_code).order_by('-date')[0].comment.upper
 
 
    # OHLCV data 진행예정 , ['date':date,(parsing한 시간으로 ) 'close_price':13234, up: ['긍정,'부정'],down:['부정']]
