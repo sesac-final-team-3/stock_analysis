@@ -1,7 +1,8 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
 <style>
-
 
   .sentiment {
     width: 1080px;
@@ -38,7 +39,7 @@
   }
 
   .cluster_body {
-    padding: 13px;
+    padding: 12px;
   }  
 
   ul {
@@ -48,6 +49,8 @@
   .cluster_list {
     padding-left: 60px;
     padding-right: 60px;
+    align-items: center;
+    margin-top: 20px;
   }
 
   .cluster_item {
@@ -67,14 +70,14 @@
 
   .cluster_thumb a {
     vertical-align: top;
-    width: 132px;
+    width: 130px;
     height: 90px;
   }
 
   .cluster_thumb_link {
     display: block;
     position: relative;
-}
+  }
 
   .cluster_text_headline {
     overflow: hidden;
@@ -92,11 +95,8 @@
   }
 
   .cluster_text_lede {
-    display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     padding-bottom: 6px;
     font-size: 13px;
     line-height: 20px;
@@ -109,8 +109,8 @@
   }
 
   img {
-    width: 132px;
-    aspect-ratio: auto 132 / 90;
+    width: 130px;
+    aspect-ratio: auto 130 / 90;
     height: 90px;
   }
   .content_box{
@@ -127,6 +127,7 @@
     padding-right: 1rem;
     padding-bottom: 2rem;
   }
+
   .line_top {
     display: inline-flex;
     height: 10px;
@@ -135,8 +136,7 @@
     border: none;
     text-align: center;
     border-radius: 10px;
-    
-}
+  }
 
   .line_top::after {
       content: "";
@@ -149,32 +149,45 @@
       border-radius: 10px;
   }
 
-
+  .col{
+    display: inline;
+    align-items: left;
+    font-size: 18px;
+    font-weight: bold;
+  }
 </style>
+
 <div class="content_box">
-  <div class="sentiment">긍부정점수</div>
+  <div class="sentiment">
+    <div class="col">긍부정점수</div>
+  </div>
     <hr/>
   <table cellpadding="0" cellspacing="0" class="container"></table>
   <div class="col">관련 뉴스</div>
   <tr>
     <td>
-      <!-- name 수정 필요 -->
       {% for news in news_table %}
-      <div class="cluster_body" style ="display: inline; text-align: lieft; align-items: center;">
+      <div class="cluster_body" style ="display: inline; text-align: left; align-items: center;">
         <ul class="cluster_list">
           <li class="cluster_item">
             <div class="cluster_thumb">
               <a>
-                <img src={{news.photourl}} class="cluster_thumb_link nclicks(cls_nav.clsart)"></a>
+                {% if news.photourl != null %}
+                  <img src={{news.photourl}} class="cluster_thumb_link nclicks(cls_nav.clsart)">
+                {% else %}
+                  <img src='/static/img/no_image.jpg' class="cluster_thumb_link nclicks(cls_nav.clsart)">
+                {% endif %}
+              </a>
             </div>
             <div class="cluster_text">
-              <a class="cluster_text_headline"  href={{news.url}}>{{news.title}}{{ news.title | truncatechars:100 }}</a>
+              <a class="cluster_text_headline" href={{news.url}}>{{ news.title | truncatechars:100 }}</a>
               <div class="cluster_text_lede">
                 {{ news.content | truncatechars:200 }}
               </div>
             </div>
           </div>
-          {% endfor %}
+        <hr>
+      {% endfor %}
     <div>
       {% include 'snippets/pagination.html' with page_obj=page_obj %}
     </div>
