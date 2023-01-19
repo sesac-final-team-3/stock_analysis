@@ -1,72 +1,66 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from articleapp.models import TbName
+from newsapp.models import TbNews
+from financeapp.models import TbOHLCV
+import time
+import json
 
-# Create your views here.
-from django.urls import reverse, reverse_lazy
-from django.utils.decorators import method_decorator
-from django.views.generic import CreateView, DetailView, ListView, UpdateView, DeleteView
-from django.views.generic.list import MultipleObjectMixin
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
+from articleapp.models import TbName, TbReport, TbSentimental
+from financeapp.models import TbOHLCV
+import time
 
-from newsapp.decorators import project_ownership_required
-from articleapp.models import Article
-from newsapp.forms import NewsCreationForm
-from newsapp.models import News
-
-
-@method_decorator(login_required, 'get')
-@method_decorator(login_required, 'post')
-class NewsCreateView(CreateView):
-    model = News
-    form_class = NewsCreationForm
-    template_name = 'newsapp/create.html'
-
-    def form_valid(self, form):
-        temp_project = form.save(commit=False)
-        temp_project.writer = self.request.user
-        temp_project.save()
-        return super().form_valid(form)
-
-    def get_success_url(self):
-        return reverse('projectapp:detail', kwargs={'pk': self.object.pk})
-
-
-class NewsDetailView(DetailView, MultipleObjectMixin):
-    model = News
-    context_object_name = 'target_news'
-    template_name = 'newsapp/detail.html'
-
-    paginate_by = 16
-
-
-
-
-@method_decorator(project_ownership_required, 'get')
-@method_decorator(project_ownership_required, 'post')
-class NewsUpdateView(UpdateView):
-    model = News
-    context_object_name = 'target_project'
-    form_class = NewsCreationForm
-    template_name = 'newstapp/update.html'
-
-    def get_success_url(self):
-        return reverse('newstapp:detail', kwargs={'pk': self.object.pk})
-
-
-@method_decorator(project_ownership_required, 'get')
-@method_decorator(project_ownership_required, 'post')
-class NewsDeleteView(DeleteView):
-    model = News
-    context_object_name = 'target_project'
-    success_url = reverse_lazy('newsapp:list')
-    template_name = 'newsapp/delete.html'
-
+def news_graph(request,searched_code:str):
+    # code & news name
+    searched_code=str(searched_code).zfill(6)
+    name = TbName.objects.get(code=searched_code).name
     
-class NewsListView(ListView):
-    model = News
-    context_object_name = 'news_list'
-    template_name = 'newsapp/list.html'
-    paginate_by = 3
-    
+    news_info = TbOHLCV.objects.filter(code=searched_code).order_by('date')
+    news_results = news_info.values()
+    news_list=[]
+    pred_list=[]
 
-    def get_queryset(self):
-        return News.objects.all().order_by('pk')
+    for news_result in news_results:
+        tdate = time.mktime(news_result['date'].timetuple())*1000
+        
+        count = news_result['count']
+        pred = news_result['predict']
+        if count == None:
+            count = 0
+        if pred == None:
+            pred = 0
+        count=int(count)
+        try:
+            pred=float(pred)
+        except:
+            if pred[0]=='-':
+                pred=  float(pred[1:])*-1
+        temp1=[tdate,count]
+        temp2=[tdate,pred]
+        news_list.append(temp1)
+        pred_list.append(temp2)
+    print(news_list)
+    print(pred_list)
+
+    # news article
+    # news 검색
+    news_table=TbNews.objects.filter(code=searched_code).order_by('-date')[:30]
+    # new 수 만큼 페이지 생성
+    page = request.GET.get('page')
+    paginator = Paginator(news_table,3)
+
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page=1
+        page_obj =paginator.page(page)
+    except EmptyPage:
+        page=paginator.num_pages
+        page_obj =paginator.page(page)
+    
+        # print('@@@@',news_table[0].photourl)
+
+    data={'code':searched_code,'news_table':news_table,'page_obj':page_obj,'paginator':paginator,'news_list':news_list,'pred_list':pred_list}
+
+
+    return render(request,'newsapp/list.html', data)

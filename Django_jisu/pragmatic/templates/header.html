@@ -3,16 +3,17 @@
     <div class="viewpoint_header">
         <div>
             <h1 class="viewpoint_logo">Enterprise <a style="color: rgb(220, 0, 0);">Analysis</a> Contents</h1>
-            <p>뷰포인트에서 제공하는 뉴스 이슈 입니다. 각 항목을 클릭하면 긍부정 점수와 이벤트별 관련 뉴스를 확인 할 수 있습니다.</p>
+            <p style="color: #888d9a; line-height: 120%; ">뷰포인트에서 제공하는 모든 투자정보는 단순 참고용이며, 추천이나 권유 목적이 아닙니다. 또한 제 3자 데이터 제공업체에서 자료를 제공하므로<br/>
+            수신이 지연되거나 일부 정보가 정확하지 않을 수 있으며, 투자 결과에 대한 법적 책임소재의 증빙자료로 사용될 수 없습니다.</p>
         </div>
-        <div class="viewpoint_header_navbar" style="display: flex; flex-flow: row nowrap; justify-content: space-around;">
-            <a href="{% url 'articleapp:list' %}" class="viewpoint_header_nav" style="flex: 1">
+        <div class="viewpoint_header_navbar" style="display: flex; flex-flow: row nowrap; justify-content: space-around; margin-top: 2%;">
+            <a href="{% url 'articleapp:summary_result' searched_code=code %}" class="viewpoint_header_nav" style="flex: 1">
                 <span>기업정보</span>
             </a>
-            <a href="{% url 'news:list' %}" class="viewpoint_header_nav" style="flex: 1">
+            <a href="{% url 'newsapp:news_graph' searched_code=code %}" class="viewpoint_header_nav" style="flex: 1">
                 <span>뉴스이슈</span>
             </a>
-            <a href="{% url 'news:list' %}" class="viewpoint_header_nav" style="flex: 1">
+            <a href="{% url 'financeapp:finance_data' searched_code=code %}" class="viewpoint_header_nav" style="flex: 1">
                 <span>재무</span>
             </a>
         </div>

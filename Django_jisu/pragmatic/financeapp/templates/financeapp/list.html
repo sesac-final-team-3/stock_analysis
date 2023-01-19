@@ -1,0 +1,373 @@
+{% extends 'base.html' %} 
+{% load static %} 
+{% block content %}
+
+<style>
+.content_box{
+    display: block;
+    width : 1440px;
+    height: auto;
+    background-color: none;
+    border: 1px solid #E8E8E8;
+    border-radius: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 3rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 2rem;
+  }
+  .button {
+    background-color: rgb(230, 229, 229);
+    border: none;
+    color: rgb(0, 0, 0);
+    width: 55px;
+    height: 26px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+    pointer-events: auto; 
+}
+
+  .button_active {
+    background-color: rgb(220, 0, 0);
+    border: none;
+    color: white;
+    width: 55px;
+    height: 26px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.line_top {
+    display: inline-flex;
+    height: 10px;
+    width: 80%;
+    background-color: #EBEBEB;
+    border: none;
+    text-align: center;
+    border-radius: 10px;
+    
+}
+
+.line_top::after {
+    content: "";
+    flex-grow: 1;
+    margin: 0px 0px 0px 85% ;
+    background-color: rgb(220, 0, 0);
+    height: 10px;
+    font-size: 0px;
+    line-height: 0px;
+    border-radius: 10px;
+}
+.center_button1 {
+  margin: 0;
+  position: absolute;
+  pointer-events: none; 
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.center_button2 {
+  margin: 0;
+  position: absolute;
+  pointer-events: none;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+
+</style>
+
+<div class="content_box">
+    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">거래량
+    <div class="center_button1">
+    <button class="button" onclick="changedb1(0);">개인</button>
+    <button class="button" onclick="changedb1(1);">기관</button>
+    <button class="button" onclick="changedb1(2);">외국인</button>
+    </div>
+    </div>
+    <div id="financechart1" style="margin-top: 20px;"></div>
+</div>
+
+<div class="content_box">
+    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">공매도금액
+    </div>
+    <div id="financechart2" style="margin-top: 20px;"></div>
+</div>
+
+<div class="content_box">
+    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">주요재무정보
+    <div class="center_button2">
+    <button class="button" onclick="changedb2(0);">BPS</button>
+    <button class="button" onclick="changedb2(1);">PER</button>
+    <button class="button" onclick="changedb2(2);">PBR</button>
+    <button class="button" onclick="changedb2(3);">EPS</button>
+    <button class="button" onclick="changedb2(4);">DIV</button>
+    </div>
+    </div>
+    <div id="financechart3" style="margin-top: 20px;"></div>
+</div>
+
+
+<script>
+Highcharts.setOptions({
+    global:{
+        useUTC:false
+    }
+    });
+    
+var currentMenu1;
+var currentMenu3;
+var button1 = document.querySelector('.center_button1');
+var button2 = document.querySelector('.center_button2');
+
+
+function inactivate(elem){
+    elem.classList.remove('button_active');
+}
+
+function activate1(elem){
+    elem.classList.add('button_active');
+    currentMenu1 = elem;
+}
+function clickHandler1(e){
+    if (currentMenu1){
+        inactivate(currentMenu1);
+    }
+    activate1(e.target);
+}
+
+
+function activate2(elem){
+    elem.classList.add('button_active');
+    currentMenu3 = elem;
+}
+function clickHandler2(e){
+    if (currentMenu3){
+        inactivate(currentMenu3);
+    }
+    activate2(e.target);
+}
+
+button1.addEventListener('click', clickHandler1);
+button2.addEventListener('click', clickHandler2);
+activate1(document.querySelectorAll('.button')[0]);
+activate2(document.querySelectorAll('.button')[3]);  
+
+
+
+var chart1 =Highcharts.stockChart('financechart1', {
+        chart: {
+            style: {
+                fontFamily: 'NanumSquareR',
+            }},
+        rangeSelector: {
+            selected: 1
+        },
+        credits:{
+            enabled:false
+        },
+        exporting:{
+            enabled:false
+        },
+        xAxis: {
+         labels: {
+          enabled: false
+         }
+      },
+        yAxis: [{
+        
+        title: {
+          text: 'closing price',
+        },
+        },
+       {
+        title: {
+        text: 'volume',
+      },
+      opposite: false
+     }],
+  
+    series: [
+      { type: 'column', 
+      name: '거래량', 
+      data: []
+      },
+
+      { type: 'line', 
+      name: '종가', 
+      data: [],
+      color:'#FF9999',
+      yAxis:1
+        }],
+      tooltip: {
+        headerFormat: '<span style="font-size:15px">{point.x:%b %e, %Y}</span><table>',
+        pointFormat: '<tr><td style="color:black;padding:0">{series.name}: </td>' +
+            '<td><b>{point.y}</b></td></tr>',
+        footerFormat: '</table>',
+        split: false,
+        shared: true,
+        useHTML: true,
+        width:'400px'
+        }})
+chart1.series[0].setData({{vol_retail_investor_list}})
+chart1.series[1].setData({{price_list}})
+function changedb1(idx){
+    if (idx==0) {
+        chart1.series[0].setData({{vol_retail_investor_list}});
+    }
+    else if (idx==1) {
+        chart1.series[0].setData({{vol_institution_list}});
+    }
+    else {
+        chart1.series[0].setData({{vol_foreigner_list}})
+    }
+    }
+
+Highcharts.stockChart('financechart2', {
+    chart: {
+        style: {
+            fontFamily: 'NanumSquareR',
+        }},
+    rangeSelector: {
+        selected: 1
+    },
+    credits:{
+        enabled:false
+    },
+    exporting:{
+        enabled:false
+    },
+    xAxis: {
+        labels: {
+        enabled: false
+        }
+    },
+    yAxis: [{
+    
+    title: {
+        text: 'closing price',
+    },
+    },
+    {
+    title: {
+    text: 'value',
+    enabled:false
+    },
+    opposite: false
+    }],
+
+series: [
+    
+    { type: 'column', 
+    name: '공매도금액', 
+    data: {{short_value_list}},
+    },
+    { type: 'line', 
+    name: '종가', 
+    data: {{price_list}},
+    color:'#FF9999',
+    yAxis:1    
+    }],
+
+    tooltip: {
+    headerFormat: '<span style="font-size:15px">{point.x:%b %e, %Y}</span><table>',
+    pointFormat: '<tr><td style="color:black;padding:0">{series.name}: </td>' +
+        '<td><b>{point.y}</b></td></tr>',
+    footerFormat: '</table>',
+    split: false,
+    shared: true,
+    useHTML: true,
+    width:'400px'
+    }})
+
+var chart3 =Highcharts.stockChart('financechart3', {
+    chart: {
+        style: {
+            fontFamily: 'NanumSquareR',
+        }},
+    rangeSelector: {
+        selected: 1
+    },
+    credits:{
+        enabled:false
+    },
+    exporting:{
+        enabled:false
+    },
+    xAxis: {
+        labels: {
+        enabled: false
+        }
+    },
+    yAxis: [{
+    
+    title: {
+        text: 'closing price',
+    },
+    },
+    {
+    title: {
+    text: 'value',
+    enabled:false
+    },
+    opposite: false
+    }],
+
+series: [
+    { type: 'column', 
+    name: '보유량', 
+    data: []
+    },
+    { type: 'line', 
+    name: '종가', 
+    data: [],
+    color:'#FF9999',
+    yAxis:1
+    }],
+    tooltip: {
+    headerFormat: '<span style="font-size:15px">{point.x:%b %e, %Y}</span><table>',
+    pointFormat: '<tr><td style="color:black;padding:0">{series.name}: </td>' +
+        '<td><b>{point.y}</b></td></tr>',
+    footerFormat: '</table>',
+    split: false,
+    shared: true,
+    useHTML: true,
+    width:'400px'
+    }})
+chart3.series[0].setData({{BPS_list}})
+chart3.series[1].setData({{price_list}})
+function changedb2(idx){
+    if (idx==0) {
+        chart3.series[0].setData({{BPS_list}});
+    }
+    else if (idx==1) {
+        chart3.series[0].setData({{PER_list}});
+    }
+    else if (idx==2) {
+        chart3.series[0].setData({{PBR_list}});
+    }
+    else if (idx==3) {
+        chart3.series[0].setData({{EPS_list}});
+    }
+    else {
+        chart3.series[0].setData({{DIV_list}})
+    }
+    }
+;</script>    
+
+{% endblock %}

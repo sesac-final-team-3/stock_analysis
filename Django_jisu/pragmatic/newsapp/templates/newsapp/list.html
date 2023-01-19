@@ -1,7 +1,8 @@
-{% extends 'base.html' %} {% load static %} {% block content %}
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
 
 <style>
-
 
   .sentiment {
     width: 1080px;
@@ -37,10 +38,6 @@
     border-radius: 10px;
   }
 
-  .cluster_body {
-    padding: 13px;
-  }  
-
   ul {
     list-style-type : none;
   }
@@ -48,6 +45,8 @@
   .cluster_list {
     padding-left: 60px;
     padding-right: 60px;
+    align-items: center;
+    margin-top: 20px;
   }
 
   .cluster_item {
@@ -67,14 +66,14 @@
 
   .cluster_thumb a {
     vertical-align: top;
-    width: 132px;
+    width: 130px;
     height: 90px;
   }
 
   .cluster_thumb_link {
     display: block;
     position: relative;
-}
+  }
 
   .cluster_text_headline {
     overflow: hidden;
@@ -92,11 +91,8 @@
   }
 
   .cluster_text_lede {
-    display: -webkit-box;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
     padding-bottom: 6px;
     font-size: 13px;
     line-height: 20px;
@@ -109,8 +105,8 @@
   }
 
   img {
-    width: 132px;
-    aspect-ratio: auto 132 / 90;
+    width: 130px;
+    aspect-ratio: auto 130 / 90;
     height: 90px;
   }
   .content_box{
@@ -127,6 +123,7 @@
     padding-right: 1rem;
     padding-bottom: 2rem;
   }
+
   .line_top {
     display: inline-flex;
     height: 10px;
@@ -135,8 +132,7 @@
     border: none;
     text-align: center;
     border-radius: 10px;
-    
-}
+  }
 
   .line_top::after {
       content: "";
@@ -149,65 +145,147 @@
       border-radius: 10px;
   }
 
-
+  .col{
+    display: inline;
+    align-items: left;
+    font-size: 18px;
+    font-weight: bold;
+  }
 </style>
+
 <div class="content_box">
-  <div class="sentiment">긍부정점수</div>
-    <hr/>
-  <table cellpadding="0" cellspacing="0" class="container"></table>
-  <div class="col">관련 뉴스</div>
-  <tr>
-    <td>
-      <!-- name 수정 필요 -->
-      <div class="cluster_body">
-        <ul class="cluster_list">
-          <li class="cluster_item">
-            <div class="cluster_thumb">
-              <a><img src="https://search.pstatic.net/common/?src=https%3A%2F%2Fimgnews.pstatic.net%2Fimage%2Forigin%2F001%2F2023%2F01%2F06%2F13685034.jpg&type=ff264_180&expire=2&refresh=true" class="cluster_thumb_link nclicks(cls_nav.clsart)"></a>
-            </div>
-            <div class="cluster_text">
-              <a class="cluster_text_headline">[특징주] LG에너지솔루션, 실적 실망에 이틀째 약세</a>
-              <div class="cluster_text_lede">
-              "6일 증시에서 LG에너지솔루션이 기대를 밑도는 실적을 거뒀다는 분석이 나오면서 이틀째 하락 중이다. 오전 9시 6분 현재 LG에너지솔루션은 전 거래일보다 1.04%"
+  <div class="col">긍부정점수</div>
+  <div id="container2"></div>
+</div>
+<script> 
+Highcharts.setOptions({
+        global:{
+            useUTC:false
+        }
+        });
+    Highcharts.stockChart('container2', {
+        chart: {
+            style: {
+                fontFamily: 'SBAggroB'
+            }},
+        rangeSelector: {
+            selected: 1
+        },
+        credits:{
+            enabled:false
+        },
+        exporting:{
+            enabled:false
+        },
+        title: {
+            text: '{{name}}',
+            style: {
+                fontFamily: 'SBAggroB',
+                fontWeight: 'bold',
+                fontSize: '25px'
+            }
+        },
+        xAxis: {
+         labels: {
+          enabled: false
+         }
+      },
+        yAxis: [{
+        
+        title: {
+          text: 'predict',
+        },
+        min:-1.2,
+        max:1.2,
+        },
+       {
+        title: {
+        text: 'news_count',
+      },
+      min:0,
+      max:200,
+      opposite: false
+     }],
+  
+    series: [
+      { type: 'column', 
+      name: 'news_count', 
+
+      data: {{news_list}},
+      yAxis:1,
+      tooltip: {
+            valueSuffix: '개'
+        },
+      color:  "#AAB3B3"},
+      { type: 'line', 
+      name: 'predict', 
+
+      data: {{pred_list}},
+      color:'#FC3030'}],
+      tooltip: {
+        headerFormat: '<span style="color:black; font-size:10px; font-family:GmarketSansMedium;">{point.x:%b %e, %Y}</span><table>',
+        pointFormat: '<tr><td style="color:black; font-size:15px; font-family:GmarketSansMedium;">{series.name}: </td>' +
+          '<td style="color:{point.color}; font-size:15px; font-family:GmarketSansMedium;"><b>{point.y}</b></td></tr>',
+        footerFormat: '</table>',
+        split: false,
+        shared: true,
+        useHTML: true,
+        width:'400px'
+        },
+  });
+</script>
+
+<p></p>
+<p></p>
+
+  <div class="content_box">
+    <table cellpadding="0" cellspacing="0" class="container"></table>
+    <div class="col">관련 뉴스</div>
+    <tr>
+      <td>
+        {% for news in page_obj %}
+        <div style ="display: inline; text-align: left; align-items: center;">
+          <ul class="cluster_list">
+            <li class="cluster_item">
+              <div class="cluster_thumb">
+                <a>
+                  {% if news.photourl != null %}
+                    <img src={{news.photourl}} class="cluster_thumb_link nclicks(cls_nav.clsart)">
+                  {% else %}
+                    <img src='/static/img/no_image.jpg' class="cluster_thumb_link nclicks(cls_nav.clsart)">
+                  {% endif %}
+                </a>
+              </div>
+              <div class="cluster_text">
+                <a class="cluster_text_headline" href={{news.url}}>{{ news.title | truncatechars:100 }}</a>
+                <a class="cluster_text_lede" href={{news.url}}>
+                  {{ news.content | truncatechars:300 }}
+                </a>
               </div>
             </div>
-          </li>
           <hr>
-          <li class="cluster_item">
-            <div class="cluster_thumb">
-              <a><img src="https://biz.chosun.com/resizer/LdeVy8SqX8wvF_abURMH1HS_yxc=/616x0/smart/cloudfront-ap-northeast-1.images.arcpublishing.com/chosunbiz/F7SCLP2IUPXP5EUI4DLKXGBG4Q.jpg"></a>
-              </a>
-            </div>
-            <div class="cluster_text">
-              <a class="cluster_text_headline">신한투자증권 “LG에너지솔루션, 4분기 실적 부진...목표가 하향 조정”</a>
-              <div class="cluster_text_lede">
-                "신한투자증권은 6일 LG에너지솔루션에 대해 4분기 실적은 인센티브 지급에 따른 인건비 부담과 재고 조정 효과로 일회성 이슈로 실적 부진을 전망했다. 투자의견은 ‘매수’를 유지, 목표가는 기존 69만원에서 62만원으로 하향 조정했다."
-              </div>
-            </div>
-          </li>
-          <hr>
-          <li class="cluster_item">
-            <div class="cluster_thumb">
-              <a><img src="https://wimg.mk.co.kr/news/cms/202301/05/news-p.v1.20230105.162c8fd3106a4a7687fce972cde70dd2_P1.jpg"></a>
-              </a>
-            </div>
-            <div class="cluster_text">
-              <a class="cluster_text_headline">LG엔솔-도요타 배터리 협력, 합작사 설립 대신 공급으로</a>
-              <div class="cluster_text_lede">
-                "美생산 파우치형 배터리 이르면 1분기 계약 전망 도요타, 공급처 다변화로 배터리 물량 빠르게 확보 장기적으론 내재화 주력 LG에너지솔루션과 도요타자동차의 배"
-              </div>
-            </div>
-          </li>
-        </ul>
+        {% endfor %}
+
+        <div style="text-align: center;">
+          <ul style="display: inline-flex;list-style: none;">
+          {% if page_obj.has_previous%}
+            <li style="margin: 3px;"><a style="text-decoration: none;color: black;" href="?page={{ page_obj.previous_page_number }}">이전</a></li>
+          {% endif%}
+
+          {% for page in paginator.page_range %}
+          {% if page == page_obj.number%}
+            <li style="margin: 3px;"><a style="text-decoration: none;color: red;" href="?page={{page}}">{{page}}</a></li>
+          {% else %}
+            <li style="margin: 3px;"><a style="text-decoration: none;color: black;" href="?page={{page}}">{{page}}</a></li>
+          {% endif%}
+          {% endfor %}
+
+          {% if page_obj.has_next%}
+          <li style="margin: 3px;"><a style="text-decoration: none;color: black;" href="?page={{ page_obj.next_page_number }}">다음</a></li>
+          {% endif%}
+          </ul>
+        </div>
       </div>
-    </td>
-  </tr>
-  <script src="{% static 'js/magicgrid.js' %}"></script>
-</div>
-  {% include 'snippets/pagination.html' with page_obj=page_obj %}
-
-
-</div>
-
+    </div>
 
 {% endblock %}

@@ -1,9 +1,9 @@
-from django.forms import ModelForm
+# from django.forms import ModelForm
 
-from newsapp.models import News
+# from newsapp.models import News
 
 
-class NewsCreationForm(ModelForm):
-    class Meta:
-        model = News
-        fields = ['image', 'title', 'description']
+# class NewsCreationForm(ModelForm):
+#     class Meta:
+#         model = News
+#         fields = ['image', 'title', 'description']
