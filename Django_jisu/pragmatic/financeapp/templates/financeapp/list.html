@@ -18,7 +18,23 @@
     padding-bottom: 2rem;
   }
   .button {
-    background-color: rgb(220, 0, 0); /* Green */
+    background-color: rgb(230, 229, 229);
+    border: none;
+    color: rgb(0, 0, 0);
+    width: 55px;
+    height: 26px;
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 13px;
+    margin: 4px 2px;
+    cursor: pointer;
+    pointer-events: auto; 
+}
+
+  .button_active {
+    background-color: rgb(220, 0, 0);
     border: none;
     color: white;
     width: 55px;
@@ -53,7 +69,26 @@
     line-height: 0px;
     border-radius: 10px;
 }
-.center_button {
+.center_button1 {
+  margin: 0;
+  position: absolute;
+  pointer-events: none; 
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.center_button2 {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.center_button3 {
   margin: 0;
   position: absolute;
   top: 50%;
@@ -65,7 +100,7 @@
 
 <div class="content_box">
     <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">거래량
-    <div class="center_button">
+    <div class="center_button1">
     <button class="button" onclick="changedb1(0);">개인</button>
     <button class="button" onclick="changedb1(1);">기관</button>
     <button class="button" onclick="changedb1(1);">외국인</button>
@@ -76,7 +111,7 @@
 
 <div class="content_box">
     <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">공매도
-    <div class="center_button">
+    <div class="center_button2">
     <button class="button" onclick="changedb2(0);">개인</button>
     <button class="button" onclick="changedb2(1);">기관</button>
     <button class="button" onclick="changedb2(2);">외국인</button>
@@ -87,7 +122,7 @@
 
 <div class="content_box">
     <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">보유량
-    <div class="center_button">
+    <div class="center_button3">
     <button class="button" onclick="changedb3(0);">개인</button>
     <button class="button" onclick="changedb3(1);">기관</button>
     <button class="button" onclick="changedb3(2);">외국인</button>
@@ -98,6 +133,60 @@
 
 
 <script>
+var currentMenu1;
+var currentMenu2;
+var currentMenu3;
+var button1 = document.querySelector('.center_button1');
+var button2 = document.querySelector('.center_button2');
+var button3 = document.querySelector('.center_button3');
+
+
+function inactivate(elem){
+    elem.classList.remove('button_active');
+}
+
+function activate1(elem){
+    elem.classList.add('button_active');
+    currentMenu1 = elem;
+}
+function clickHandler1(e){
+    if (currentMenu1){
+        inactivate(currentMenu1);
+    }
+    activate1(e.target);
+}
+
+function activate2(elem){
+    elem.classList.add('button_active');
+    currentMenu2 = elem;
+}
+function clickHandler2(e){
+    if (currentMenu2){
+        inactivate(currentMenu2);
+    }
+    activate2(e.target);
+}
+
+function activate3(elem){
+    elem.classList.add('button_active');
+    currentMenu3 = elem;
+}
+function clickHandler3(e){
+    if (currentMenu3){
+        inactivate(currentMenu3);
+    }
+    activate3(e.target);
+}
+
+button1.addEventListener('click', clickHandler1);
+button2.addEventListener('click', clickHandler2);
+button3.addEventListener('click', clickHandler3);
+activate1(document.querySelectorAll('.button')[0]);
+activate2(document.querySelectorAll('.button')[3]);
+activate3(document.querySelectorAll('.button')[6]);  
+
+
+
 var chart1 =Highcharts.stockChart('financechart1', {
         chart: {
             style: {
