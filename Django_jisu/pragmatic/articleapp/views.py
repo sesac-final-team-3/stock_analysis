@@ -82,7 +82,6 @@ def summary_result(request,searched_code):
     ohlcv_list=[]
     
     for ohlcv_result in ohlcv:
-        
         temp={}
         temp['x']=time.mktime(ohlcv_result['date'].timetuple())*1000
         temp['y']=int(ohlcv_result['close_price'])
@@ -97,7 +96,7 @@ def summary_result(request,searched_code):
         # {'x': 1668470400.0, 'y': 596000, 'compare_price': '-1.32', 'word': {'부정_단어': '개인,증시,상승,미국,매수,발언,전날,의장,매도,성장', '부정_빈도': '0.31,0.31,0.25,0.25,0.19,0.19,0.19,0.19,0.19,0.19', '긍정_단어': '기관,외국인,상위,전자,매수,투자,관련,주의,올해,기간', '긍정_빈도': '0.6,0.4,0.4,0.4,0.4,0.2,0.2,0.2,0.2,0.2'}},
         ohlcv_list.append(temp)
         # print(ohlcv_list)
-        ohlcv_list=ohlcv_list[-1000:]
+        # ohlcv_list=ohlcv_list[-1000:]
     # ohlcv_list = str(ohlcv_list).replace("'", '')
     data={'code':searched_code,'name':name,"market":market,"CEO":ceo,"sector":sector,"market_cap":market_cap,'c_pos':c_pos,'c_neg':c_neg,'a_opinion':a_opinion,'ohlcv_list':ohlcv_list, 'listed_date':listed_date}
     return render(request,'articleapp/list.html',data)
