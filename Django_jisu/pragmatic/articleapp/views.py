@@ -16,10 +16,10 @@ def searching_db(request):
     """
     print('###convert 접속')
     searching=request.POST.get('stock_search')
-    print('@@@@',searching)
+    # print('@@@@',searching)
     company_info=TbName.objects.filter(name=searching)
     searched_code = str(company_info.values()[0]['code']) #.first()
-    print(f'{searched_code}를 검색합니다.')
+    # print(f'{searched_code}를 검색합니다.')
 
     return redirect('articleapp:summary_result',searched_code)
 
@@ -38,7 +38,7 @@ def summary_result(request,searched_code):
     
     # main table 
     company_info=TbName.objects.get(code=searched_code) # TbName object (005930)
-    print('#####',company_info)
+    # print('#####',company_info)
     # CEO, code, homepage, listed_date, market, market_cap, name, sector, 
     
     # name
@@ -63,7 +63,7 @@ def summary_result(request,searched_code):
     # comment value # 댓글 반응
     comment_info=TbSentimental.objects.filter(code=searched_code).order_by('-date')[0].comment
     # comment_info=senti_info.order_by('-news_graph')[0] -> newgraph url 됨
-    print('### comment_info 결과값:',comment_info)
+    # print('### comment_info 결과값:',comment_info)
     # comment value string 인 것들 dict 화
     comment_value=json.loads(comment_info.replace("'", "\""))
     c_neg=comment_value['neg']
