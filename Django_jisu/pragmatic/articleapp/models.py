@@ -19,6 +19,7 @@ class TbName(models.Model):
 
     class Meta:
         db_table = 'tb_name'
+        
 
 
 class TbReport(models.Model):

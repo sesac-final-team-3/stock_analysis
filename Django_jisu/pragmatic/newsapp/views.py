@@ -15,23 +15,6 @@ def news_graph(request,searched_code:str):
     searched_code=str(searched_code).zfill(6)
     name = TbName.objects.get(code=searched_code).name
     
-  
-    # news article
-    # news 검색
-    news_table=TbNews.objects.filter(code=searched_code).order_by('-date')[:30]
-    # new 수 만큼 페이지 생성
-    page = request.GET.get('page')
-    paginator = Paginator(news_table,3)
-
-    try:
-        page_obj = paginator.page(page)
-    except PageNotAnInteger:
-        page=1
-        page_obj =paginator.page(page)
-    except EmptyPage:
-        page=paginator.num_pages
-        page_obj =paginator.page(page)
-    
     news_info = TbOHLCV.objects.filter(code=searched_code).order_by('date')
     news_results = news_info.values()
     news_list=[]
@@ -58,7 +41,24 @@ def news_graph(request,searched_code:str):
         pred_list.append(temp2)
     print(news_list)
     print(pred_list)
-    # print('@@@@',news_table[0].photourl)
+
+    # news article
+    # news 검색
+    news_table=TbNews.objects.filter(code=searched_code).order_by('-date')[:30]
+    # new 수 만큼 페이지 생성
+    page = request.GET.get('page')
+    paginator = Paginator(news_table,3)
+
+    try:
+        page_obj = paginator.page(page)
+    except PageNotAnInteger:
+        page=1
+        page_obj =paginator.page(page)
+    except EmptyPage:
+        page=paginator.num_pages
+        page_obj =paginator.page(page)
+    
+        # print('@@@@',news_table[0].photourl)
 
     data={'code':searched_code,'news_table':news_table,'page_obj':page_obj,'paginator':paginator,'news_list':news_list,'pred_list':pred_list}
 

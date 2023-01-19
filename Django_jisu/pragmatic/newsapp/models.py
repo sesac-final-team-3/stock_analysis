@@ -15,4 +15,4 @@ class TbNews(models.Model):
 
     class Meta:
         db_table = 'tb_news'
-
+        

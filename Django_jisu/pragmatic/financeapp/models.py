@@ -27,7 +27,7 @@ class TbOHLCV(models.Model):
 
 	class Meta:
 		db_table = 'tb_ohlcv'
-	
+		
 
 class TbTradingInfo(models.Model):
 	id = models.AutoField(db_column='ID', primary_key=True)
