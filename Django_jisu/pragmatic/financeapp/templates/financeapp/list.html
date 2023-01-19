@@ -82,20 +82,14 @@
 .center_button2 {
   margin: 0;
   position: absolute;
+  pointer-events: none;
   top: 50%;
   left: 50%;
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
-.center_button3 {
-  margin: 0;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
+
 </style>
 
 <div class="content_box">
@@ -110,22 +104,19 @@
 </div>
 
 <div class="content_box">
-    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">공매도
-    <div class="center_button2">
-    <button class="button" onclick="changedb2(0);">개인</button>
-    <button class="button" onclick="changedb2(1);">기관</button>
-    <button class="button" onclick="changedb2(2);">외국인</button>
-    </div>
+    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">공매도금액
     </div>
     <div id="financechart2" style="margin-top: 20px;"></div>
 </div>
 
 <div class="content_box">
-    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">보유량
-    <div class="center_button3">
-    <button class="button" onclick="changedb3(0);">개인</button>
-    <button class="button" onclick="changedb3(1);">기관</button>
-    <button class="button" onclick="changedb3(2);">외국인</button>
+    <div style="position: relative;font-size: 18px;font-weight: bold;margin-left:10px;">주요재무정보
+    <div class="center_button2">
+    <button class="button" onclick="changedb2(0);">BPS</button>
+    <button class="button" onclick="changedb2(1);">PER</button>
+    <button class="button" onclick="changedb2(2);">PBR</button>
+    <button class="button" onclick="changedb2(3);">EPS</button>
+    <button class="button" onclick="changedb2(4);">DIV</button>
     </div>
     </div>
     <div id="financechart3" style="margin-top: 20px;"></div>
@@ -140,11 +131,9 @@ Highcharts.setOptions({
     });
     
 var currentMenu1;
-var currentMenu2;
 var currentMenu3;
 var button1 = document.querySelector('.center_button1');
 var button2 = document.querySelector('.center_button2');
-var button3 = document.querySelector('.center_button3');
 
 
 function inactivate(elem){
@@ -162,34 +151,22 @@ function clickHandler1(e){
     activate1(e.target);
 }
 
+
 function activate2(elem){
     elem.classList.add('button_active');
-    currentMenu2 = elem;
+    currentMenu3 = elem;
 }
 function clickHandler2(e){
-    if (currentMenu2){
-        inactivate(currentMenu2);
+    if (currentMenu3){
+        inactivate(currentMenu3);
     }
     activate2(e.target);
 }
 
-function activate3(elem){
-    elem.classList.add('button_active');
-    currentMenu3 = elem;
-}
-function clickHandler3(e){
-    if (currentMenu3){
-        inactivate(currentMenu3);
-    }
-    activate3(e.target);
-}
-
 button1.addEventListener('click', clickHandler1);
 button2.addEventListener('click', clickHandler2);
-button3.addEventListener('click', clickHandler3);
 activate1(document.querySelectorAll('.button')[0]);
-activate2(document.querySelectorAll('.button')[3]);
-activate3(document.querySelectorAll('.button')[6]);  
+activate2(document.querySelectorAll('.button')[3]);  
 
 
 
@@ -215,7 +192,7 @@ var chart1 =Highcharts.stockChart('financechart1', {
         yAxis: [{
         
         title: {
-          text: 'stock',
+          text: 'closing price',
         },
         },
        {
@@ -226,16 +203,17 @@ var chart1 =Highcharts.stockChart('financechart1', {
      }],
   
     series: [
+      { type: 'column', 
+      name: '거래량', 
+      data: []
+      },
+
       { type: 'line', 
       name: '종가', 
       data: [],
-      color:'#FF9999'
-      
-        },
-      { type: 'column', 
-      name: '거래량', 
-      data: [],
-      yAxis:1,}],
+      color:'#FF9999',
+      yAxis:1
+        }],
       tooltip: {
         headerFormat: '<span style="font-size:15px">{point.x:%b %e, %Y}</span><table>',
         pointFormat: '<tr><td style="color:black;padding:0">{series.name}: </td>' +
@@ -246,21 +224,21 @@ var chart1 =Highcharts.stockChart('financechart1', {
         useHTML: true,
         width:'400px'
         }})
-chart1.series[0].setData({{price_list}})
-chart1.series[1].setData({{vol_retail_investor_list}})
+chart1.series[0].setData({{vol_retail_investor_list}})
+chart1.series[1].setData({{price_list}})
 function changedb1(idx){
     if (idx==0) {
-        chart1.series[1].setData({{vol_retail_investor_list}});
+        chart1.series[0].setData({{vol_retail_investor_list}});
     }
     else if (idx==1) {
-        chart1.series[1].setData({{vol_institution_list}});
+        chart1.series[0].setData({{vol_institution_list}});
     }
     else {
-        chart1.series[1].setData({{vol_foreigner_list}})
+        chart1.series[0].setData({{vol_foreigner_list}})
     }
     }
 
-var chart2 =Highcharts.stockChart('financechart2', {
+Highcharts.stockChart('financechart2', {
     chart: {
         style: {
             fontFamily: 'NanumSquareR',
@@ -282,27 +260,30 @@ var chart2 =Highcharts.stockChart('financechart2', {
     yAxis: [{
     
     title: {
-        text: 'stock',
+        text: 'closing price',
     },
     },
     {
     title: {
     text: 'value',
+    enabled:false
     },
     opposite: false
     }],
 
 series: [
+    
+    { type: 'column', 
+    name: '공매도금액', 
+    data: {{short_value_list}},
+    },
     { type: 'line', 
     name: '종가', 
-    data: [],
-    color:'#FF9999'
-    
-    },
-    { type: 'column', 
-    name: '공매도', 
-    data: [],
-    yAxis:1,}],
+    data: {{price_list}},
+    color:'#FF9999',
+    yAxis:1    
+    }],
+
     tooltip: {
     headerFormat: '<span style="font-size:15px">{point.x:%b %e, %Y}</span><table>',
     pointFormat: '<tr><td style="color:black;padding:0">{series.name}: </td>' +
@@ -313,20 +294,6 @@ series: [
     useHTML: true,
     width:'400px'
     }})
-chart2.series[0].setData({{price_list}})
-chart2.series[1].setData({{vol_retail_investor_list}})
-function changedb2(idx){
-    if (idx==0) {
-        chart2.series[1].setData({{vol_retail_investor_list}});
-    }
-    else if (idx==1) {
-        chart2.series[1].setData({{vol_institution_list}});
-    }
-    else {
-        chart2.series[1].setData({{vol_foreigner_list}})
-    }
-    }
-
 
 var chart3 =Highcharts.stockChart('financechart3', {
     chart: {
@@ -350,27 +317,28 @@ var chart3 =Highcharts.stockChart('financechart3', {
     yAxis: [{
     
     title: {
-        text: 'stock',
+        text: 'closing price',
     },
     },
     {
     title: {
     text: 'value',
+    enabled:false
     },
     opposite: false
     }],
 
 series: [
+    { type: 'column', 
+    name: '보유량', 
+    data: []
+    },
     { type: 'line', 
     name: '종가', 
     data: [],
-    color:'#FF9999'
-    
-    },
-    { type: 'column', 
-    name: '보유량', 
-    data: [],
-    yAxis:1,}],
+    color:'#FF9999',
+    yAxis:1
+    }],
     tooltip: {
     headerFormat: '<span style="font-size:15px">{point.x:%b %e, %Y}</span><table>',
     pointFormat: '<tr><td style="color:black;padding:0">{series.name}: </td>' +
@@ -381,17 +349,23 @@ series: [
     useHTML: true,
     width:'400px'
     }})
-chart3.series[0].setData({{price_list}})
-chart3.series[1].setData({{vol_retail_investor_list}})
-function changedb3(idx){
+chart3.series[0].setData({{BPS_list}})
+chart3.series[1].setData({{price_list}})
+function changedb2(idx){
     if (idx==0) {
-        chart3.series[1].setData({{vol_retail_investor_list}});
+        chart3.series[0].setData({{BPS_list}});
     }
     else if (idx==1) {
-        chart3.series[1].setData({{vol_institution_list}});
+        chart3.series[0].setData({{PER_list}});
+    }
+    else if (idx==2) {
+        chart3.series[0].setData({{PBR_list}});
+    }
+    else if (idx==3) {
+        chart3.series[0].setData({{EPS_list}});
     }
     else {
-        chart3.series[1].setData({{vol_foreigner_list}})
+        chart3.series[0].setData({{DIV_list}})
     }
     }
 ;</script>    
