@@ -20,6 +20,7 @@ class TbName(models.Model):
     class Meta:
         db_table = 'tb_name'
 
+
 class TbReport(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
     date = models.DateTimeField(db_column='date', blank=True, null=True)
@@ -32,13 +33,13 @@ class TbReport(models.Model):
     class Meta:
         db_table = 'tb_report'
 
+
 class TbSentimental(models.Model):
     id = models.AutoField(db_column='ID', primary_key=True)
     date = models.DateTimeField(db_column='date', blank=True, null=True)
     code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
     comment = models.TextField(db_column='comment', blank=True, null=True)
     updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)
-    news_graph=models.TextField(db_column='news_graph',blank=True,null=True)
 
     class Meta:
         db_table = 'tb_senti'

@@ -12,6 +12,7 @@ class TbNews(models.Model):
     content = models.TextField(db_column='content', blank=True, null=True)
     photourl = models.TextField(db_column='photourl', blank=True, null=True)
     updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)
+
     class Meta:
         db_table = 'tb_news'
 
