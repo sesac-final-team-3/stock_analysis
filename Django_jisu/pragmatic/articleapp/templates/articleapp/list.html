@@ -355,6 +355,11 @@ ul {
 <script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
     // Create the chart
     Highcharts.stockChart('container2', {
+        plotOptions: {
+            series: {
+              turboThreshold: 0 // Comment out this code to display error
+            }
+          },
         rangeSelector: {
             selected: 1
         },
