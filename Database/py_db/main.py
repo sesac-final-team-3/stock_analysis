@@ -81,4 +81,4 @@ if __name__ == '__main__':
     # print(o_df['code'].head())
     # print(o_df.iloc[:,8:].head())
     # print(o_df.iloc[:,8:].tail())
-    print('insert_OHLCV',mystocks.insert_tradinginfo(o_df))
+    print('insert_tradinginfo',mystocks.insert_tradinginfo(o_df))

@@ -5,7 +5,7 @@ from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 
 def news_graph(request,searched_code):
     # Tableau 진행시 
-    graph_info=TbSentimental.objects.filter(code=searched_code).order_by('-news_graph')
+    # graph_info=TbSentimental.objects.filter(code=searched_code).order_by('-news_graph')
     # print('@@@@',graph_info[0].news_graph)
 
     news_table=TbNews.objects.filter(code=searched_code).order_by('-date')[:30]
@@ -23,7 +23,7 @@ def news_graph(request,searched_code):
         page=paginator.num_pages
         page_obj =paginator.page(page)
 
-    print('@@@@',news_table[0].photourl)
+    # print('@@@@',news_table[0].photourl)
     data={'code':searched_code,'news_table':news_table,'page_obj':page_obj,'paginator':paginator}
 
     return render(request,'newsapp/list.html', data)
