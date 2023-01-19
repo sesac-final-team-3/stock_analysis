@@ -10,5 +10,4 @@ urlpatterns = [
     path('team3/news/', include('newsapp.urls'),name='newsapp'),
     path('team3/finanace/', include('financeapp.urls'),name='financeapp'),
     
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

@@ -2,7 +2,7 @@ from pathlib import Path
 import os
 from django.urls import reverse_lazy
 import private_setting
-
+import mimetypes
 import environ
 env = environ.Env(
     # set casting, default value
@@ -24,7 +24,7 @@ environ.Env.read_env(
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'articleapp',
     'searchapp',
     'financeapp',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -125,7 +126,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = '/team3/static/'
 
 # STATIC_ROOT = 'staticfiles'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -141,3 +142,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = ['http://43.201.96.246']
+
+mimetypes.add_type("text/javascript",".js",True)

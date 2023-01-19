@@ -1,4 +1,53 @@
 {% load static %}
+<style>
+    .viewpoint_logo {
+        font-family: 'Secular One', sans-serif;
+    }
+    
+    .viewpoint_footer_button {
+        font-size: .9rem;
+    }
+    
+    .viewpoint_footer {
+        text-align:center;
+        margin-top: 2rem;
+    }
+    
+    .viewpoint_header {
+        text-align:center;
+        margin: 0px;
+    }
+    
+    @media screen and (max-width:500px) {
+        html {
+            font-size: 13px;
+        }
+    }
+    
+    a {
+        color: black;
+    }
+    
+    a:hover {
+        color: black;
+        text-decoration: none;
+    }
+    
+    .viewpoint_header_nav {
+        margin: 0 0.5rem;
+    }
+    
+    
+    .viewpoint_header_navbar {
+        margin: 1rem 0;
+    }
+    
+    .news_box {
+        width: 4rem;
+        height: 2rem;
+        background-color: brown;
+    }
+</style>
 
 <head>
     <meta charset="UTF-8">
@@ -17,28 +66,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
 
     <!--  DEFAULT CSS LINK  -->
-    <link rel="stylesheet" type="text/css" href="{% static 'base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'base2.css' %}">
 
     <style>
         @font-face {
-            font-family: 'NanumSquareR';
-            src: local('NanumSquareR'),
-            url("{% static 'fonts/NanumSquareR.ttf' %}") format("opentype");
-        }
-        @font-face {
-            font-family: 'NanumSquareEB';
-            src: local('NanumSquareEB'),
-            url("{% static 'fonts/NanumSquareEB.otf' %}") format("opentype");
-        }
-        @font-face {
-            font-family: 'NanumSquareB';
-            src: local('NanumSquareB'),
-            url("{% static 'fonts/NanumSquareB.otf' %}") format("opentype");
-        }
-        @font-face {
-            font-family: 'NanumSquareR';
-            src: local('NanumSquareR'),
-            url("{% static 'fonts/NanumSquareR.otf' %}") format("opentype");
+            font-family: 'NanumSquareNeo-Variable';
+            src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+            font-weight: normal;
+            font-style: normal;
         }
 
 
