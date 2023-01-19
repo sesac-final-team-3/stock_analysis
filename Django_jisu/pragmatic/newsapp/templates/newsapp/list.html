@@ -205,7 +205,8 @@
     series: [
       { type: 'column', 
       name: 'news_count', 
-      data: {{ohlcv_count|safe}},
+
+      data: {{news_list}},
       yAxis:1,
       tooltip: {
             valueSuffix: '개'
@@ -213,8 +214,9 @@
       color:  "#AAB3B3"},
       { type: 'line', 
       name: 'predict', 
-      data: {{ohlcv_predict}|safe}
-      ,color:'#FC3030'}],
+
+      data: {{pred_list}},
+      color:'#FC3030'}],
       tooltip: {
         headerFormat: '<span style="color:black; font-size:10px; font-family:GmarketSansMedium;">{point.x:%b %e, %Y}</span><table>',
         pointFormat: '<tr><td style="color:black; font-size:15px; font-family:GmarketSansMedium;">{series.name}: </td>' +
