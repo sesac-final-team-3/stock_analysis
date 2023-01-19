@@ -352,8 +352,12 @@ ul {
 </div>
 
 
-<script> Highcharts.getJSON('https://demo-live-data.highcharts.com/aapl-c.json', function (data) {
-    // Create the chart
+<script>
+    Highcharts.setOptions({
+        global:{
+            useUTC:false
+        }
+        });
     Highcharts.stockChart('container2', {
         plotOptions: {
             series: {
@@ -402,7 +406,6 @@ ul {
             shared: true,
             useHTML: true,
         },  
-    });
-});</script>
+    });;</script>
 
 {% endblock %}

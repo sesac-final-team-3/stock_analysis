@@ -158,6 +158,11 @@
   <div id="container2"></div>
 </div>
 <script> 
+Highcharts.setOptions({
+        global:{
+            useUTC:false
+        }
+        });
     Highcharts.stockChart('container2', {
         chart: {
             style: {

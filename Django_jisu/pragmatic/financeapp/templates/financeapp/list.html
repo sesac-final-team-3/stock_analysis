@@ -103,7 +103,7 @@
     <div class="center_button1">
     <button class="button" onclick="changedb1(0);">개인</button>
     <button class="button" onclick="changedb1(1);">기관</button>
-    <button class="button" onclick="changedb1(1);">외국인</button>
+    <button class="button" onclick="changedb1(2);">외국인</button>
     </div>
     </div>
     <div id="financechart1" style="margin-top: 20px;"></div>
@@ -133,6 +133,12 @@
 
 
 <script>
+Highcharts.setOptions({
+    global:{
+        useUTC:false
+    }
+    });
+    
 var currentMenu1;
 var currentMenu2;
 var currentMenu3;
@@ -209,32 +215,27 @@ var chart1 =Highcharts.stockChart('financechart1', {
         yAxis: [{
         
         title: {
-          text: 'ratio yAxis',
+          text: 'stock',
         },
-        min:-1.2,
-        max:1.2,
         },
        {
         title: {
-        text: 'count yAxis',
+        text: 'volume',
       },
-      min:0,
-      max:200,
       opposite: false
      }],
   
     series: [
-      { type: 'column', 
-      name: 'news_count', 
-      data: [],
-      yAxis:1,
-      tooltip: {
-            valueSuffix: '개'
-        } },
       { type: 'line', 
-      name: 'ratio', 
+      name: '종가', 
       data: [],
-      color:'#FF9999'}],
+      color:'#FF9999'
+      
+        },
+      { type: 'column', 
+      name: '거래량', 
+      data: [],
+      yAxis:1,}],
       tooltip: {
         headerFormat: '<span style="font-size:15px">{point.x:%b %e, %Y}</span><table>',
         pointFormat: '<tr><td style="color:black;padding:0">{series.name}: </td>' +
@@ -245,17 +246,18 @@ var chart1 =Highcharts.stockChart('financechart1', {
         useHTML: true,
         width:'400px'
         }})
-chart1.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 21]])
-chart1.series[1].setData([[1512313200000.0, 0.5], [1512399600000.0, -0.5], [1512486000000.0, -0.5], [1512572400000.0, -10]])
+chart1.series[0].setData({{price_list}})
+chart1.series[1].setData({{vol_retail_investor_list}})
 function changedb1(idx){
     if (idx==0) {
-        chart1.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
+        chart1.series[1].setData({{vol_retail_investor_list}});
     }
-    if (idx==1) {
-        chart1.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
+    else if (idx==1) {
+        chart1.series[1].setData({{vol_institution_list}});
     }
     else {
-        chart1.series[0].setData([[1512313200000.0, 20], [1512399600000.0, 40], [1512486000000.0, 35], [1512572400000.0, 50]])}
+        chart1.series[1].setData({{vol_foreigner_list}})
+    }
     }
 
 var chart2 =Highcharts.stockChart('financechart2', {
@@ -280,32 +282,27 @@ var chart2 =Highcharts.stockChart('financechart2', {
     yAxis: [{
     
     title: {
-        text: 'ratio yAxis',
+        text: 'stock',
     },
-    min:-1.2,
-    max:1.2,
     },
     {
     title: {
-    text: 'count yAxis',
+    text: 'value',
     },
-    min:0,
-    max:200,
     opposite: false
     }],
 
 series: [
-    { type: 'column', 
-    name: 'news_count', 
-    data: [],
-    yAxis:1,
-    tooltip: {
-        valueSuffix: '개'
-    } },
     { type: 'line', 
-    name: 'ratio', 
+    name: '종가', 
     data: [],
-    color:'#FF9999'}],
+    color:'#FF9999'
+    
+    },
+    { type: 'column', 
+    name: '공매도', 
+    data: [],
+    yAxis:1,}],
     tooltip: {
     headerFormat: '<span style="font-size:15px">{point.x:%b %e, %Y}</span><table>',
     pointFormat: '<tr><td style="color:black;padding:0">{series.name}: </td>' +
@@ -316,18 +313,20 @@ series: [
     useHTML: true,
     width:'400px'
     }})
-chart2.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 21]])
-chart2.series[1].setData([[1512313200000.0, 0.5], [1512399600000.0, -0.5], [1512486000000.0, -0.5], [1512572400000.0, -10]])
+chart2.series[0].setData({{price_list}})
+chart2.series[1].setData({{vol_retail_investor_list}})
 function changedb2(idx){
     if (idx==0) {
-        chart2.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
+        chart2.series[1].setData({{vol_retail_investor_list}});
     }
     else if (idx==1) {
-        chart2.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
+        chart2.series[1].setData({{vol_institution_list}});
     }
     else {
-        chart2.series[0].setData([[1512313200000.0, 20], [1512399600000.0, 40], [1512486000000.0, 35], [1512572400000.0, 50]])}
+        chart2.series[1].setData({{vol_foreigner_list}})
     }
+    }
+
 
 var chart3 =Highcharts.stockChart('financechart3', {
     chart: {
@@ -351,32 +350,27 @@ var chart3 =Highcharts.stockChart('financechart3', {
     yAxis: [{
     
     title: {
-        text: 'ratio yAxis',
+        text: 'stock',
     },
-    min:-1.2,
-    max:1.2,
     },
     {
     title: {
-    text: 'count yAxis',
+    text: 'value',
     },
-    min:0,
-    max:200,
     opposite: false
     }],
 
 series: [
-    { type: 'column', 
-    name: 'news_count', 
-    data: [],
-    yAxis:1,
-    tooltip: {
-        valueSuffix: '개'
-    } },
     { type: 'line', 
-    name: 'ratio', 
+    name: '종가', 
     data: [],
-    color:'#FF9999'}],
+    color:'#FF9999'
+    
+    },
+    { type: 'column', 
+    name: '보유량', 
+    data: [],
+    yAxis:1,}],
     tooltip: {
     headerFormat: '<span style="font-size:15px">{point.x:%b %e, %Y}</span><table>',
     pointFormat: '<tr><td style="color:black;padding:0">{series.name}: </td>' +
@@ -387,17 +381,18 @@ series: [
     useHTML: true,
     width:'400px'
     }})
-chart3.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 21]])
-chart3.series[1].setData([[1512313200000.0, 0.5], [1512399600000.0, -0.5], [1512486000000.0, -0.5], [1512572400000.0, -10]])
+chart3.series[0].setData({{price_list}})
+chart3.series[1].setData({{vol_retail_investor_list}})
 function changedb3(idx){
     if (idx==0) {
-        chart3.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
+        chart3.series[1].setData({{vol_retail_investor_list}});
     }
-    if (idx==1) {
-        chart3.series[0].setData([[1512313200000.0, 27], [1512399600000.0, 19], [1512486000000.0, 16], [1512572400000.0, 41]]);
+    else if (idx==1) {
+        chart3.series[1].setData({{vol_institution_list}});
     }
     else {
-        chart3.series[0].setData([[1512313200000.0, 20], [1512399600000.0, 40], [1512486000000.0, 35], [1512572400000.0, 50]])}
+        chart3.series[1].setData({{vol_foreigner_list}})
+    }
     }
 ;</script>    
 
