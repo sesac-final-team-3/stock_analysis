@@ -1,20 +1,26 @@
 from django.shortcuts import render,redirect
-from articleapp.models import TbSentimental
+from articleapp.models import TbName
 from newsapp.models import TbNews
+from financeapp.models import TbOHLCV
+import time
+import json
+
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from articleapp.models import TbName, TbReport, TbSentimental
 from financeapp.models import TbOHLCV
 import time
 
 def news_graph(request,searched_code:str):
-    # Tableau 진행시 
-    # graph_info=TbSentimental.objects.filter(code=searched_code).order_by('-news_graph')
-    # print('@@@@',graph_info[0].news_graph)
+    # code & news name
     searched_code=str(searched_code).zfill(6)
+    name = TbName.objects.get(code=searched_code).name
+    
+  
+    # news article
+    # news 검색
     news_table=TbNews.objects.filter(code=searched_code).order_by('-date')[:30]
-    # print('!!!!',news_table.values())
+    # new 수 만큼 페이지 생성
     page = request.GET.get('page')
-    print('###',page)
     paginator = Paginator(news_table,3)
 
     try:
@@ -53,6 +59,8 @@ def news_graph(request,searched_code:str):
     print(news_list)
     print(pred_list)
     # print('@@@@',news_table[0].photourl)
+
     data={'code':searched_code,'news_table':news_table,'page_obj':page_obj,'paginator':paginator,'news_list':news_list,'pred_list':pred_list}
+
 
     return render(request,'newsapp/list.html', data)
