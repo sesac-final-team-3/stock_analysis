@@ -40,7 +40,6 @@ class TbSentimental(models.Model):
     code = models.ForeignKey(TbName, models.DO_NOTHING, db_column='code')
     comment = models.TextField(db_column='comment', blank=True, null=True)
     updated_date = models.DateTimeField(db_column='updated_date', blank=True, null=True)
-    news_graph=models.TextField(db_column='news_graph',blank=True,null=True)
 
     class Meta:
         db_table = 'tb_senti'
