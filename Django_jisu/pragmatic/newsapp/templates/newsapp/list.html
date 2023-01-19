@@ -3,6 +3,15 @@
 {% block content %}
 
 <style>
+  
+  a {
+        color: black;
+    }
+    
+  a:hover {
+        color: black;
+        text-decoration: none;
+    }
 
   .sentiment {
     width: 1080px;
@@ -257,7 +266,7 @@ Highcharts.setOptions({
                 </a>
               </div>
               <div class="cluster_text">
-                <a class="cluster_text_headline" href={{news.url}}>{{ news.title | truncatechars:100 }}</a>
+                <a style="color:black" class="cluster_text_headline" href={{news.url}}>{{ news.title | truncatechars:100 }}</a>
                 <a class="cluster_text_lede" href={{news.url}}>
                   {{ news.content | truncatechars:300 }}
                 </a>

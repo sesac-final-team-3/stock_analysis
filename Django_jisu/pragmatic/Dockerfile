@@ -3,9 +3,13 @@ WORKDIR /usr/src/app
 
 
 ## Copy all src files
+
 COPY requirements.txt requirements.txt
 RUN pip install -r requirements.txt
+WORKDIR /usr/src/app/pragmatic
 COPY . .
+# RUN python manage.py collectstatic
+
 ## Run the application on the port 8080
 EXPOSE 8000
 
