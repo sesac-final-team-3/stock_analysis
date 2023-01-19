@@ -5,10 +5,10 @@ from django.urls import path, include
 import searchapp.views
 
 urlpatterns = [
-    path('',searchapp.views.main, name='main'),
-    path('articles/', include('articleapp.urls'),name='articleapp'),
-    path('news/', include('newsapp.urls'),name='newsapp'),
-    path('finanace/', include('financeapp.urls'),name='financeapp'),
+    path('team3/',searchapp.views.main, name='main'),
+    path('team3/articles/', include('articleapp.urls'),name='articleapp'),
+    path('team3/news/', include('newsapp.urls'),name='newsapp'),
+    path('team3/finanace/', include('financeapp.urls'),name='financeapp'),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
