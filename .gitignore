@@ -5,6 +5,7 @@
 *.csv
 *.txt
 *.log3
+private_setting.py
 
 ### Django ###
 *.log
